@@ -1,0 +1,162 @@
+/* ------------------------------------------------------------------
+ * PawID global styles
+ * All colors, spacing, and radii live here as CSS variables so every
+ * component can reference them and the look stays consistent.
+ * ----------------------------------------------------------------- */
+
+:root {
+  /* Brand */
+  --color-accent:       #1d9e75;
+  --color-accent-dark:  #0f6e56;
+  --color-accent-soft:  #e1f5ee;
+
+  /* Neutrals */
+  --color-bg-primary:     #ffffff;
+  --color-bg-secondary:   #f7f7f5;
+  --color-bg-tertiary:    #eeedea;
+  --color-text-primary:   #141413;
+  --color-text-secondary: #6b6a65;
+  --color-text-muted:     #9a9892;
+
+  /* Borders (0.5px gives the refined look from the mockup) */
+  --color-border-primary:   #d3d1cb;
+  --color-border-secondary: #c5c3bc;
+  --color-border-tertiary:  #e6e4df;
+
+  /* Status badge palette */
+  --badge-new-bg:    #e1f5ee;   --badge-new-fg:    #0f6e56;
+  --badge-active-bg: #e6f1fb;   --badge-active-fg: #185fa5;
+  --badge-urgent-bg: #faece7;   --badge-urgent-fg: #993c1d;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+img { max-width: 100%; display: block; }
+
+/* --------- shared buttons --------- */
+
+.btn-primary {
+  font-size: 13px;
+  padding: 9px 18px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: #fff;
+  transition: background 0.15s ease;
+}
+.btn-primary:hover { background: var(--color-accent-dark); }
+
+.btn-ghost {
+  font-size: 13px;
+  padding: 9px 18px;
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-primary);
+}
+.btn-ghost:hover { background: var(--color-bg-secondary); }
+
+/* --------- shared badges --------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+}
+.badge--new    { background: var(--badge-new-bg);    color: var(--badge-new-fg); }
+.badge--active { background: var(--badge-active-bg); color: var(--badge-active-fg); }
+.badge--urgent { background: var(--badge-urgent-bg); color: var(--badge-urgent-fg); }
+
+/* --------- forms --------- */
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 0.5px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-accent);
+}
+
+textarea { resize: vertical; min-height: 90px; }
+
+/* --------- page layout container --------- */
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 32px 32px 56px;
+}
+
+/* --------- responsive --------- */
+
+@media (max-width: 720px) {
+  .page { padding: 20px 16px 40px; }
+}
+
+/* --------- a11y utility --------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

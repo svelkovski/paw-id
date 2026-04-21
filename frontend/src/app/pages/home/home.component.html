@@ -1,0 +1,128 @@
+<!-- ==================== HERO ==================== -->
+<section class="max-w-[640px] mx-auto px-8 pt-18 pb-14 text-center max-[560px]:px-5 max-[560px]:pt-12 max-[560px]:pb-9">
+  <div class="inline-flex items-center gap-1.5 px-3 py-1 mb-5
+              bg-accent-soft text-accent-soft-fg rounded-full text-xs">
+    <span class="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true"></span>
+    Community-powered stray dog registry
+  </div>
+
+  <h1 class="text-[44px] font-medium leading-[1.15] tracking-tight text-text-primary mb-4.5
+             max-[560px]:text-3xl">
+    Every street dog<br>
+    deserves a <span class="text-accent">known identity</span>
+  </h1>
+
+  <p class="text-base text-text-secondary leading-[1.7] mb-8">
+    PawID lets your community register, track sightings, and build identity profiles
+    for stray and lost dogs — so no dog stays unknown forever.
+  </p>
+
+  <div class="flex gap-3 justify-center flex-wrap">
+    <a routerLink="/dogs/register" class="btn-primary">Register a dog →</a>
+    <a routerLink="/dogs" class="btn-ghost">Browse profiles</a>
+  </div>
+</section>
+
+<!-- ==================== STATS ==================== -->
+@if (!loading && !error) {
+  <section class="flex justify-center gap-12 px-8 py-6
+                  border-y border-border-tertiary/50 bg-bg-secondary
+                  max-[560px]:gap-7 max-[560px]:px-4 max-[560px]:py-5"
+           aria-label="Registry statistics">
+    <div class="text-center">
+      <div class="text-[22px] font-medium text-text-primary tabular-nums">{{ totalDogs }}</div>
+      <div class="text-xs text-text-secondary mt-0.5">Registered</div>
+    </div>
+    <div class="text-center">
+      <div class="text-[22px] font-medium text-text-primary tabular-nums">{{ totalSightings }}</div>
+      <div class="text-xs text-text-secondary mt-0.5">Total sightings</div>
+    </div>
+    <div class="text-center">
+      <div class="text-[22px] font-medium text-text-primary tabular-nums">{{ urgentCount }}</div>
+      <div class="text-xs text-text-secondary mt-0.5">Need attention</div>
+    </div>
+  </section>
+}
+
+<!-- ==================== RECENTLY REGISTERED ==================== -->
+<section class="page">
+  <header class="flex justify-between items-baseline mb-4">
+    <h2 class="text-[13px] font-medium text-text-secondary uppercase tracking-wider">Recently registered</h2>
+    <a routerLink="/dogs" class="text-[13px] text-accent hover:text-accent-dark transition-colors">
+      See all profiles →
+    </a>
+  </header>
+
+  @if (loading) {
+    <div class="py-10 px-5 text-center text-sm text-text-secondary
+                bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg">
+      Loading dogs…
+    </div>
+  } @else if (error) {
+    <div class="py-10 px-5 text-center text-sm
+                bg-bg-secondary border border-dashed rounded-lg
+                text-badge-urgent-fg border-badge-urgent-fg">
+      {{ error }}
+    </div>
+  } @else if (recentDogs.length === 0) {
+    <div class="py-10 px-5 text-center text-sm text-text-secondary
+                bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg">
+      No dogs registered yet.
+      <a routerLink="/dogs/register" class="text-accent ml-1 hover:text-accent-dark">
+        Be the first to add one →
+      </a>
+    </div>
+  } @else {
+    <div class="grid grid-cols-4 gap-3 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
+      @for (dog of recentDogs; track dog.id) {
+        <app-dog-card [dog]="dog"></app-dog-card>
+      }
+    </div>
+  }
+</section>
+
+<!-- ==================== HOW IT WORKS ==================== -->
+<section id="how-it-works" class="bg-bg-secondary border-t border-border-tertiary/50 px-8 pt-10 pb-12
+                max-[560px]:px-5 max-[560px]:pt-8 max-[560px]:pb-8">
+  <div class="max-w-[900px] mx-auto">
+    <div class="text-[13px] font-medium text-text-secondary uppercase tracking-wider mb-6">
+      How it works
+    </div>
+
+    <div class="grid grid-cols-4 relative
+                max-[900px]:grid-cols-2 max-[900px]:gap-y-7
+                max-[560px]:grid-cols-1 max-[560px]:gap-y-5">
+
+      <div class="absolute top-3.5 left-[12.5%] right-[12.5%] h-px bg-border-tertiary/50 z-0
+                  max-[900px]:hidden" aria-hidden="true"></div>
+
+      <div class="relative z-10 text-center px-3">
+        <div class="w-7 h-7 rounded-full bg-accent text-white text-xs font-medium
+                    flex items-center justify-center mx-auto mb-3">1</div>
+        <div class="text-[13px] font-medium text-text-primary mb-1">Search first</div>
+        <div class="text-xs text-text-secondary leading-normal">Check if the dog is already registered before adding a new one</div>
+      </div>
+
+      <div class="relative z-10 text-center px-3">
+        <div class="w-7 h-7 rounded-full bg-accent text-white text-xs font-medium
+                    flex items-center justify-center mx-auto mb-3">2</div>
+        <div class="text-[13px] font-medium text-text-primary mb-1">Register or sight</div>
+        <div class="text-xs text-text-secondary leading-normal">Create a new profile or add a sighting to an existing one</div>
+      </div>
+
+      <div class="relative z-10 text-center px-3">
+        <div class="w-7 h-7 rounded-full bg-accent text-white text-xs font-medium
+                    flex items-center justify-center mx-auto mb-3">3</div>
+        <div class="text-[13px] font-medium text-text-primary mb-1">Build the trail</div>
+        <div class="text-xs text-text-secondary leading-normal">Community sightings create a movement history over time</div>
+      </div>
+
+      <div class="relative z-10 text-center px-3">
+        <div class="w-7 h-7 rounded-full bg-accent text-white text-xs font-medium
+                    flex items-center justify-center mx-auto mb-3">4</div>
+        <div class="text-[13px] font-medium text-text-primary mb-1">Rehome or resolve</div>
+        <div class="text-xs text-text-secondary leading-normal">Mark a profile resolved when the dog is rehomed or reunited</div>
+      </div>
+    </div>
+  </div>
+</section>

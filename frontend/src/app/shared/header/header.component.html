@@ -1,0 +1,46 @@
+<nav class="sticky top-0 z-10 flex items-center justify-between px-8 py-3.5
+            bg-bg-primary border-b border-border-tertiary/50
+            max-md:px-4">
+  <a routerLink="/" aria-label="PawID home">
+    <app-logo></app-logo>
+  </a>
+
+  <div class="flex gap-6 max-md:hidden">
+    <a routerLink="/dogs"
+       routerLinkActive="text-accent"
+       class="text-sm text-text-secondary hover:text-text-primary transition-colors">
+      Browse profiles
+    </a>
+    <a routerLink="/dogs/register"
+       routerLinkActive="text-accent"
+       class="text-sm text-text-secondary hover:text-text-primary transition-colors">
+      Register a dog
+    </a>
+    <a href="#"
+       aria-disabled="true"
+       class="text-sm text-text-muted cursor-not-allowed">
+      Map
+    </a>
+    <a href="#how-it-works"
+          class="text-sm text-text-secondary hover:text-text-primary transition-colors">
+
+      How it works
+    </a>
+  </div>
+
+  <!-- Right side: auth buttons or logged-in user -->
+  <div class="flex items-center gap-2.5">
+    @if (auth.isLoggedIn()) {
+      <span class="text-sm text-text-secondary max-sm:hidden">
+        {{ auth.user()!.displayName }}
+      </span>
+      <button (click)="auth.logout()"
+              class="btn-ghost text-sm">
+        Sign out
+      </button>
+    } @else {
+      <a routerLink="/login"  class="btn-ghost text-sm">Sign in</a>
+      <a routerLink="/register" class="btn-primary text-sm">Sign up</a>
+    }
+  </div>
+</nav>

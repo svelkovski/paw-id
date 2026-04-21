@@ -1,0 +1,121 @@
+<section class="page">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="flex items-end justify-between gap-4 mb-6 flex-wrap">
+    <div>
+      <h1 class="text-2xl font-medium text-text-primary mb-1">Browse profiles</h1>
+      <p class="text-sm text-text-secondary">
+        Every registered dog in the community.
+        @if (!loading && !error) {
+          <span class="tabular-nums">{{ filteredDogs.length }} of {{ dogs.length }} shown.</span>
+        }
+      </p>
+    </div>
+
+    <a routerLink="/dogs/register" class="btn-primary">Register a dog →</a>
+  </header>
+
+  <!-- ==================== SEARCH + FILTERS ==================== -->
+  <!--
+    The filter bar is one bordered container that visually groups
+    the search input with the filter chips, following the mockup's
+    "combined search box" pattern.
+  -->
+  <div class="mb-6 bg-bg-secondary border border-border-tertiary/50 rounded-lg overflow-hidden">
+
+    <!-- Row 1: search input -->
+    <div class="flex items-center gap-2 px-4 py-3 border-b border-border-tertiary/50">
+      <!-- search icon -->
+      <svg class="w-4 h-4 text-text-muted shrink-0" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+
+      <input type="text"
+             [(ngModel)]="searchTerm"
+             placeholder="Search by name, color, or area…"
+             aria-label="Search dogs"
+             class="flex-1 bg-transparent border-0 outline-none
+                    text-sm text-text-primary placeholder:text-text-muted">
+
+      @if (searchTerm) {
+        <button type="button"
+                (click)="searchTerm = ''"
+                aria-label="Clear search"
+                class="text-text-muted hover:text-text-primary text-lg leading-none px-1">×</button>
+      }
+    </div>
+
+    <!-- Row 2: size chips -->
+    <div class="flex items-center gap-2 px-4 py-3 border-b border-border-tertiary/50 flex-wrap">
+      <span class="text-xs uppercase tracking-wider text-text-muted mr-1">Size</span>
+      @for (chip of sizeChips; track chip.value) {
+        <button type="button"
+                (click)="sizeFilter = chip.value"
+                class="chip"
+                [class.chip--active]="sizeFilter === chip.value"
+                [class.chip--inactive]="sizeFilter !== chip.value">
+          {{ chip.label }}
+        </button>
+      }
+    </div>
+
+    <!-- Row 3: status chips -->
+    <div class="flex items-center gap-2 px-4 py-3 flex-wrap">
+      <span class="text-xs uppercase tracking-wider text-text-muted mr-1">Status</span>
+      @for (chip of statusChips; track chip.value) {
+        <button type="button"
+                (click)="statusFilter = chip.value"
+                class="chip"
+                [class.chip--active]="statusFilter === chip.value"
+                [class.chip--inactive]="statusFilter !== chip.value">
+          {{ chip.label }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- ==================== RESULTS ==================== -->
+  @if (loading) {
+    <div class="py-12 px-5 text-center text-sm text-text-secondary
+                bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg">
+      Loading dogs…
+    </div>
+  } @else if (error) {
+    <div class="py-12 px-5 text-center text-sm
+                bg-bg-secondary border border-dashed rounded-lg
+                text-badge-urgent-fg border-badge-urgent-fg">
+      {{ error }}
+    </div>
+  } @else if (dogs.length === 0) {
+    <!-- No dogs in the system at all -->
+    <div class="py-12 px-5 text-center text-sm text-text-secondary
+                bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg">
+      No dogs registered yet.
+      <a routerLink="/dogs/register" class="text-accent ml-1 hover:text-accent-dark">
+        Be the first to add one →
+      </a>
+    </div>
+  } @else if (filteredDogs.length === 0) {
+    <!-- Dogs exist, but the filter ruled them all out -->
+    <div class="py-12 px-5 text-center text-sm text-text-secondary
+                bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg">
+      No dogs match the current filters.
+      @if (hasActiveFilters) {
+        <button type="button"
+                (click)="clearFilters()"
+                class="text-accent ml-1 hover:text-accent-dark underline underline-offset-2">
+          Clear filters
+        </button>
+      }
+    </div>
+  } @else {
+    <div class="grid grid-cols-4 gap-3 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
+      @for (dog of filteredDogs; track dog.id) {
+        <app-dog-card [dog]="dog"></app-dog-card>
+      }
+    </div>
+  }
+</section>

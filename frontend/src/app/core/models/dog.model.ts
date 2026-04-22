@@ -1,32 +1,19 @@
-/**
- * Frontend types that mirror the backend DTOs exactly.
- *
- * When the backend DTOs change, this file changes in lockstep. Keeping everything
- * in one file (instead of one-per-interface) makes it easy to see the whole
- * shape of the API at a glance — useful when students are new to the domain.
- */
-
-// --- enums as string literal unions (simplest TS representation) ---
-
 export type DogSize = 'SMALL' | 'MEDIUM' | 'LARGE';
 
 export type HealthStatus = 'HEALTHY' | 'NEEDS_ATTENTION' | 'INJURED' | 'SICK';
 
-/** Derived on the backend from the latest sighting — see DogService.computeBadge. */
 export type DogBadge = 'NEW' | 'ACTIVE' | 'URGENT';
-
-// --- responses ---
 
 export interface DogSummary {
   id: number;
-  displayName: string;          // e.g. "Bruno #0041" or "Unknown #0039"
+  displayName: string;          
   size: DogSize;
   color: string;
   areaLabel: string | null;
   latestHealthStatus: HealthStatus;
-  photoUrl: string | null;      // "/uploads/abc.jpg" — resolve with DogService.resolvePhotoUrl
+  photoUrl: string | null;      
   sightingCount: number;
-  createdAt: string;            // ISO-8601
+  createdAt: string;            
   badge: DogBadge;
 }
 
@@ -39,7 +26,7 @@ export interface Sighting {
   longitude: number | null;
   photoUrl: string | null;
   reportedAt: string;
-  reporterName: string;   // display name of the reporter, or "Anonymous"
+  reporterName: string;   
 }
 
 export interface DogDetail {
@@ -58,8 +45,6 @@ export interface DogDetail {
   badge: DogBadge;
   sightings: Sighting[];
 }
-
-// --- requests ---
 
 export interface CreateDogRequest {
   name?: string;

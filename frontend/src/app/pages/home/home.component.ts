@@ -1,26 +1,23 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, OnInit } from "@angular/core";
+import { RouterLink } from "@angular/router";
 
-import { DogService } from '../../core/services/dog.service';
-import { DogSummary } from '../../core/models/dog.model';
-import { DogCardComponent } from '../../shared/dog-card/dog-card.component';
+import { DogService } from "../../core/services/dog.service";
+import { DogSummary } from "../../core/models/dog.model";
+import { DogCardComponent } from "../../shared/dog-card/dog-card.component";
 
 @Component({
-  selector: 'app-home',
+  selector: "app-home",
   standalone: true,
   imports: [RouterLink, DogCardComponent],
-  templateUrl: './home.component.html'
+  templateUrl: "./home.component.html",
 })
 export class HomeComponent implements OnInit {
-
   private readonly dogService = inject(DogService);
 
-  // --- state ---
   dogs: DogSummary[] = [];
   loading = true;
   error: string | null = null;
 
-  // --- derived ---
   get totalDogs(): number {
     return this.dogs.length;
   }
@@ -30,10 +27,9 @@ export class HomeComponent implements OnInit {
   }
 
   get urgentCount(): number {
-    return this.dogs.filter(d => d.badge === 'URGENT').length;
+    return this.dogs.filter((d) => d.badge === "URGENT").length;
   }
 
-  /** Only the 4 most recent dogs — the full list lives on /dogs. */
   get recentDogs(): DogSummary[] {
     return this.dogs.slice(0, 4);
   }
@@ -45,9 +41,10 @@ export class HomeComponent implements OnInit {
         this.loading = false;
       },
       error: () => {
-        this.error = 'Unable to load dogs. Is the backend running on localhost:8080?';
+        this.error =
+          "Unable to load dogs. Is the backend running on localhost:8080?";
         this.loading = false;
-      }
+      },
     });
   }
 }

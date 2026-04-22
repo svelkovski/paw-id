@@ -1,6 +1,6 @@
-<nav class="sticky top-0 z-10 flex items-center justify-between px-8 py-3.5
-            bg-bg-primary border-b border-border-tertiary/50
-            max-md:px-4">
+<nav
+  class="sticky top-0 z-10 flex items-center justify-between px-8 py-4 bg-bg-primary border-b border-border-tertiary/50 max-md:px-4"
+>
   <a routerLink="/" aria-label="PawID home">
     <app-logo></app-logo>
   </a>
@@ -23,18 +23,17 @@
 </a>
   </div>
 
-  <!-- Right side: auth buttons or logged-in user -->
-  <div class="flex items-center gap-2.5">
+  <div class="flex items-center gap-3">
     @if (auth.isLoggedIn()) {
-    <span class="text-sm text-text-secondary max-sm:hidden">
-      {{ auth.user()!.displayName }}
-    </span>
-    <button (click)="auth.logout()" class="btn-ghost text-sm">
-      Sign out
-    </button>
+      <span class="text-[15px] text-text-secondary max-sm:hidden">
+        {{ auth.user()!.displayName }}
+      </span>
+      <button (click)="auth.logout()" class="btn-ghost text-sm">
+        Sign out
+      </button>
     } @else {
-    <a routerLink="/login" class="btn-ghost text-sm">Sign in</a>
-    <a routerLink="/register" class="btn-primary text-sm">Sign up</a>
+      <a routerLink="/login" class="btn-ghost text-sm">Sign in</a>
+      <a routerLink="/register" class="btn-primary text-sm">Sign up</a>
     }
   </div>
 </nav>

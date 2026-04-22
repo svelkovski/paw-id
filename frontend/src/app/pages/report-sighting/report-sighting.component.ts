@@ -17,7 +17,7 @@ import {
   DogDetail,
   HealthStatus
 } from '../../core/models/dog.model';
-
+import { WebcamModalComponent } from '../../shared/webcam-modal/webcam-modal';
 interface ChipOption<T extends string> {
   value: T;
   label: string;
@@ -33,7 +33,7 @@ const FALLBACK_CENTER: L.LatLngExpression = [41.9981, 21.4254];
 @Component({
   selector: 'app-report-sighting',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, WebcamModalComponent],
   templateUrl: './report-sighting.component.html'
 })
 export class ReportSightingComponent implements OnInit, OnDestroy {
@@ -59,6 +59,7 @@ export class ReportSightingComponent implements OnInit, OnDestroy {
   // --- photo state ---
   photoFile: File | null = null;
   photoPreviewUrl: string | null = null;
+  showWebcam = false;
 
   // --- submission state ---
   submitting = false;
@@ -157,6 +158,16 @@ export class ReportSightingComponent implements OnInit, OnDestroy {
     this.photoFile = null;
     this.photoPreviewUrl = null;
   }
+  openWebcam(): void {
+  this.showWebcam = true;
+}
+
+onWebcamPhoto(file: File): void {
+  this.showWebcam = false;
+  if (this.photoPreviewUrl) URL.revokeObjectURL(this.photoPreviewUrl);
+  this.photoFile = file;
+  this.photoPreviewUrl = URL.createObjectURL(file);
+}
 
   // --- map handling ---
 

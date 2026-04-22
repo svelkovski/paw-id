@@ -59,7 +59,7 @@
       <!-- Capture buttons -->
       <div class="flex gap-2 flex-wrap">
         <button type="button"
-                (click)="cameraInput.click()"
+                (click)="openWebcam()"
                 class="btn-ghost">
           📷 Take photo
         </button>
@@ -215,4 +215,10 @@
       </button>
     </div>
   </form>
+  @if (showWebcam) {
+  <app-webcam-modal
+    (photoTaken)="onWebcamPhoto($event)"
+    (cancelled)="showWebcam = false">
+  </app-webcam-modal>
+}
 </section>

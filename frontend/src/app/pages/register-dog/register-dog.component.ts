@@ -15,6 +15,7 @@ import {
   DogSize,
   HealthStatus
 } from '../../core/models/dog.model';
+import { WebcamModalComponent } from '../../shared/webcam-modal/webcam-modal';
 
 /** Option descriptor for the size and health chip rows. */
 interface ChipOption<T extends string> {
@@ -33,7 +34,7 @@ const DEFAULT_CENTER: L.LatLngExpression = [41.9981, 21.4254];
 @Component({
   selector: 'app-register-dog',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, WebcamModalComponent],
   templateUrl: './register-dog.component.html'
 })
 export class RegisterDogComponent implements OnDestroy {
@@ -57,7 +58,7 @@ export class RegisterDogComponent implements OnDestroy {
   photoFile: File | null = null;
   /** Object URL for the photo preview. Revoked in ngOnDestroy and on replace. */
   photoPreviewUrl: string | null = null;
-
+  showWebcam = false;
   // --- submission state ---
 
   submitting = false;
@@ -140,6 +141,17 @@ export class RegisterDogComponent implements OnDestroy {
     this.photoFile = null;
     this.photoPreviewUrl = null;
   }
+
+  openWebcam(): void {
+  this.showWebcam = true;
+}
+
+onWebcamPhoto(file: File): void {
+  this.showWebcam = false;
+  if (this.photoPreviewUrl) URL.revokeObjectURL(this.photoPreviewUrl);
+  this.photoFile = file;
+  this.photoPreviewUrl = URL.createObjectURL(file);
+}
 
   // --- map / location handling ---
 

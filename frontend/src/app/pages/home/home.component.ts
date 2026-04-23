@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get recentDogs(): DogSummary[] {
-    return this.dogs.slice(0, 4);
+    return this.dogs.slice(0, 3);
   }
 
   ngOnInit(): void {
@@ -115,7 +115,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.4 }
     );
 
     this.howItWorksObserver.observe(this.howItWorksRef.nativeElement);

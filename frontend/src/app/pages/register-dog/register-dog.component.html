@@ -3,12 +3,12 @@
     <header class="mb-8">
       <a
         routerLink="/dogs"
-        class="inline-flex items-center text-[15px] text-text-secondary hover:text-text-primary transition-colors mb-3"
+        class="inline-flex items-center text-lg text-text-secondary hover:text-text-primary transition-colors mb-3"
       >
         ← Back to profiles
       </a>
       <h1 class="text-4xl font-medium text-text-primary mb-2">Register a dog</h1>
-      <p class="text-base text-text-secondary">
+      <p class="text-lg text-text-secondary">
         Add a stray or lost dog to the registry. Only size, color, and current
         health status are required — everything else is optional.
       </p>
@@ -19,7 +19,7 @@
       class="flex flex-col gap-5"
     >
       <div class="form-card">
-        <h2 class="form-card__title text-base">
+        <h2 class="form-card__title text-lg">
           Photo <span class="field-optional">(optional)</span>
         </h2>
 
@@ -68,11 +68,11 @@
       </div>
 
       <div class="form-card">
-        <h2 class="form-card__title text-base">About the dog</h2>
+        <h2 class="form-card__title text-xl">About the dog</h2>
 
         <div class="mb-5">
-          <label for="name" class="field-label text-sm">
-            Name <span class="field-optional">(optional)</span>
+          <label for="name" class="field-label text-lg">
+            Name
           </label>
           <input
             type="text"
@@ -81,18 +81,18 @@
             [(ngModel)]="name"
             maxlength="100"
             placeholder="e.g. Bruno — or leave blank if unknown"
-            class="field-input text-[15px]"
+            class="field-input text-lg"
           />
         </div>
 
         <div class="mb-5">
-          <label class="field-label text-sm">Size</label>
+          <label class="field-label text-lg">Size</label>
           <div class="flex gap-2 flex-wrap">
             @for (opt of sizeOptions; track opt.value) {
               <button
                 type="button"
                 (click)="size = opt.value"
-                class="chip text-sm px-4 py-1.5"
+                class="chip text-lg px-4 py-2"
                 [class.chip--active]="size === opt.value"
                 [class.chip--inactive]="size !== opt.value"
               >
@@ -106,7 +106,7 @@
         </div>
 
         <div class="mb-5">
-          <label for="color" class="field-label text-sm">Color</label>
+          <label for="color" class="field-label text-lg">Color</label>
           <input
             type="text"
             id="color"
@@ -114,7 +114,7 @@
             [(ngModel)]="color"
             maxlength="60"
             placeholder="e.g. Brown and white"
-            class="field-input text-[15px]"
+            class="field-input text-lg"
           />
           @if (errors["color"]) {
             <p class="field-error">{{ errors["color"] }}</p>
@@ -122,7 +122,7 @@
         </div>
 
         <div>
-          <label for="description" class="field-label text-sm">
+          <label for="description" class="field-label text-lg">
             Description <span class="field-optional">(optional)</span>
           </label>
           <textarea
@@ -132,20 +132,20 @@
             maxlength="1000"
             rows="3"
             placeholder="Distinguishing features, behavior, markings…"
-            class="field-textarea text-[15px]"
+            class="field-textarea text-lg"
           ></textarea>
         </div>
       </div>
 
       <div class="form-card">
-        <h2 class="form-card__title text-base">Current health</h2>
+        <h2 class="form-card__title text-xl">Current health</h2>
 
         <div class="flex gap-2 flex-wrap">
           @for (opt of healthOptions; track opt.value) {
             <button
               type="button"
               (click)="healthStatus = opt.value"
-              class="chip text-sm px-4 py-1.5"
+              class="chip text-lg px-4 py-1.5"
               [class.chip--active]="healthStatus === opt.value"
               [class.chip--inactive]="healthStatus !== opt.value"
             >
@@ -159,13 +159,13 @@
       </div>
 
       <div class="form-card">
-        <h2 class="form-card__title text-base">
+        <h2 class="form-card__title text-xl">
           Where was the dog spotted?
           <span class="field-optional">(optional)</span>
         </h2>
 
         <div class="mb-4">
-          <label for="areaLabel" class="field-label text-sm">Area label</label>
+          <label for="areaLabel" class="field-label text-lg">Area label</label>
           <input
             type="text"
             id="areaLabel"
@@ -173,7 +173,7 @@
             [(ngModel)]="areaLabel"
             maxlength="200"
             placeholder="e.g. Near city park"
-            class="field-input text-[15px]"
+            class="field-input text-lg"
           />
         </div>
 
@@ -193,11 +193,8 @@
                     class="btn-ghost text-[15px] px-5 py-2.5">
               Clear pin
             </button>
-            <span class="text-sm text-text-muted tabular-nums">
-              {{ latitude.toFixed(5) }}, {{ longitude.toFixed(5) }}
-            </span>
           } @else {
-            <span class="text-sm text-text-muted">
+            <span class="text-lg text-text-muted">
               …or click on the map to drop a pin
             </span>
           }

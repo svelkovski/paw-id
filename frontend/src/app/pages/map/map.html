@@ -24,16 +24,35 @@
   </div>
   } @if (!loading && !error && pins.length > 0) {
   <div
-    class="absolute top-4 right-4 z-10 px-3 py-2 rounded-md bg-bg-primary/90 border border-border-tertiary/50 text-xs text-text-secondary flex gap-3"
+    class="absolute top-4 right-4 z-10 px-4 py-3 rounded-md bg-bg-primary/90 border border-border-tertiary/50 max-w-[280px]"
   >
-    <span class="flex items-center gap-1.5">
-      <span class="inline-block w-2 h-2 rounded-full bg-accent"></span>
-      Registered
-    </span>
-    <span class="flex items-center gap-1.5">
-      <span class="inline-block w-2 h-2 rounded-full bg-[#f5b041]"></span>
-      Latest sighting
-    </span>
+    <div class="font-medium uppercase tracking-wider text-text-muted mb-2.5">
+      Legend
+    </div>
+
+    <div class="flex flex-col gap-2.5 text-text-secondary">
+      <div class="flex items-start gap-2">
+        <span class="inline-block w-4 h-4 rounded-full border-2 border-white bg-accent shrink-0 mt-0.5"></span>
+        <div>
+          <div class="text-accent font-medium">Registration sighting
+
+          </div>
+          <div class="text-white leading-relaxed max-sm:hidden">
+            Where the dog was first registered. Shown only when no sightings have been reported yet.
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-2">
+        <span class="inline-block w-4 h-4 rounded-full border-2 border-white bg-[#f5b041] shrink-0 mt-0.5"></span>
+        <div>
+          <div class="text-[#f5b041] font-medium">Latest sighting</div>
+          <div class="text-white leading-relaxed max-sm:hidden">
+            The most recent place this dog was spotted by the community.
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   }
 

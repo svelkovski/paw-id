@@ -1,5 +1,5 @@
 <nav class="sticky top-0 z-50 bg-bg-primary border-b border-border-tertiary/50">
-  <div class="flex items-center justify-between px-8 py-3.5 max-md:px-4">
+  <div class="flex items-center justify-between px-10 py-3.5 max-md:px-4">
 
     <!-- Left: logo -->
     <a routerLink="/" aria-label="PawID home" (click)="closeMenu()">
@@ -7,39 +7,46 @@
     </a>
 
     <!-- Center: desktop nav (hidden on mobile) -->
-    <div class="flex gap-6 max-md:hidden">
-      <a routerLink="/dogs" routerLinkActive="text-accent"
-        class="text-sm text-text-secondary hover:text-text-primary transition-colors">
+    <div class="flex gap-9 max-md:hidden">
+      <a routerLink="/dogs"
+        routerLinkActive="text-accent font-medium"
+        class="text-[15px] text-text-primary/70 hover:text-text-primary transition-colors">
         Browse profiles
       </a>
-      <a routerLink="/dogs/register" routerLinkActive="text-accent"
-        class="text-sm text-text-secondary hover:text-text-primary transition-colors">
+      <a routerLink="/dogs/register"
+        routerLinkActive="text-accent font-medium"
+        class="text-[15px] text-text-primary/70 hover:text-text-primary transition-colors">
         Register a dog
       </a>
-      <a routerLink="/map" routerLinkActive="text-accent"
-        class="text-sm text-text-secondary hover:text-text-primary transition-colors">
+      <a routerLink="/map"
+        routerLinkActive="text-accent font-medium"
+        class="text-[15px] text-text-primary/70 hover:text-text-primary transition-colors">
         Map
       </a>
-      <a routerLink="/about" routerLinkActive="text-accent"
-        class="text-sm text-text-secondary hover:text-text-primary transition-colors">
+      <a routerLink="/about"
+        routerLinkActive="text-accent font-medium"
+        class="text-[15px] text-text-primary/70 hover:text-text-primary transition-colors">
         How it works
       </a>
     </div>
 
-    <!-- Right side: auth buttons (desktop) / burger (mobile) -->
     <div class="flex items-center gap-2.5">
-      <!-- Desktop auth -->
-      <div class="flex items-center gap-2.5 max-md:hidden">
+      <div class="flex items-center gap-3 max-md:hidden">
         @if (auth.isLoggedIn()) {
-          <span class="text-sm text-text-secondary max-sm:hidden">
-            {{ auth.user()!.displayName }}
-          </span>
+          <div class="flex items-center gap-2.5 max-sm:hidden">
+            <span class="text-lg text-text-secondary">
+              {{ auth.user()!.displayName }}
+            </span>
+          </div>
           <button (click)="auth.logout()" class="btn-ghost text-sm">
             Sign out
           </button>
         } @else {
-          <a routerLink="/login" class="btn-ghost text-sm">Sign in</a>
-          <a routerLink="/register" class="btn-primary text-sm">Sign up</a>
+          <a routerLink="/login" class="btn-ghost text-sm text-[15px]">Sign in</a>
+          <a routerLink="/register"
+             class="btn-primary text-[15px] font-medium shadow-sm hover:shadow-md">
+            Sign up
+          </a>
         }
       </div>
 
@@ -49,9 +56,9 @@
               [attr.aria-expanded]="menuOpen()"
               aria-label="Toggle menu"
               aria-controls="mobile-menu"
-              class="md:hidden w-10 h-10 flex items-center justify-center
-                     rounded-md text-text-primary
-                     hover:bg-bg-secondary transition-colors">
+              class="md:hidden w-9 h-9 flex items-center justify-center
+                     rounded-md text-text-secondary
+                     hover:bg-bg-secondary hover:text-text-primary transition-colors">
         <!-- Hamburger / close icon — swap based on state -->
         @if (menuOpen()) {
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -72,29 +79,33 @@
   @if (menuOpen()) {
     <div id="mobile-menu"
          class="md:hidden border-t border-border-tertiary/50 bg-bg-primary
-                px-4 py-4 flex flex-col gap-1">
-      <a routerLink="/dogs" routerLinkActive="text-accent bg-bg-secondary"
+                px-3 py-3 flex flex-col">
+      <a routerLink="/dogs"
+         routerLinkActive="text-accent bg-bg-secondary"
          (click)="closeMenu()"
-         class="px-3 py-2.5 rounded-md text-sm text-text-secondary
-                hover:bg-bg-secondary hover:text-text-primary transition-colors">
+         class="px-4 py-3 rounded-md text-base text-text-primary/80
+                hover:bg-bg-secondary transition-colors">
         Browse profiles
       </a>
-      <a routerLink="/dogs/register" routerLinkActive="text-accent bg-bg-secondary"
+      <a routerLink="/dogs/register"
+         routerLinkActive="text-accent bg-bg-secondary"
          (click)="closeMenu()"
-         class="px-3 py-2.5 rounded-md text-sm text-text-secondary
-                hover:bg-bg-secondary hover:text-text-primary transition-colors">
+         class="px-4 py-3 rounded-md text-base text-text-primary/80
+                hover:bg-bg-secondary transition-colors">
         Register a dog
       </a>
-      <a routerLink="/map" routerLinkActive="text-accent bg-bg-secondary"
+      <a routerLink="/map"
+         routerLinkActive="text-accent bg-bg-secondary"
          (click)="closeMenu()"
-         class="px-3 py-2.5 rounded-md text-sm text-text-secondary
-                hover:bg-bg-secondary hover:text-text-primary transition-colors">
+         class="px-4 py-3 rounded-md text-base text-text-primary/80
+                hover:bg-bg-secondary transition-colors">
         Map
       </a>
-      <a routerLink="/about" routerLinkActive="text-accent bg-bg-secondary"
+      <a routerLink="/about"
+         routerLinkActive="text-accent bg-bg-secondary"
          (click)="closeMenu()"
-         class="px-3 py-2.5 rounded-md text-sm text-text-secondary
-                hover:bg-bg-secondary hover:text-text-primary transition-colors">
+         class="px-4 py-3 rounded-md text-base text-text-primary/80
+                hover:bg-bg-secondary transition-colors">
         How it works
       </a>
 
@@ -103,23 +114,29 @@
 
       <!-- Auth section -->
       @if (auth.isLoggedIn()) {
-        <div class="px-3 py-2 text-xs text-text-muted uppercase tracking-wider">
-          Signed in as {{ auth.user()!.displayName }}
+        <div class="px-4 py-2 flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-full bg-accent/15 text-accent text-xs font-medium
+                      flex items-center justify-center">
+            {{ auth.user()!.displayName[0].toUpperCase() }}
+          </div>
+          <span class="text-sm text-text-muted">
+            Signed in as <span class="text-text-primary">{{ auth.user()!.displayName }}</span>
+          </span>
         </div>
         <button type="button" (click)="logout()"
-                class="px-3 py-2.5 rounded-md text-sm text-left text-text-secondary
-                       hover:bg-bg-secondary hover:text-text-primary transition-colors">
+                class="px-4 py-3 rounded-md text-base text-left text-text-primary/80
+                       hover:bg-bg-secondary transition-colors">
           Sign out
         </button>
       } @else {
         <a routerLink="/login" (click)="closeMenu()"
-           class="px-3 py-2.5 rounded-md text-sm text-text-secondary
-                  hover:bg-bg-secondary hover:text-text-primary transition-colors">
+           class="px-4 py-3 rounded-md text-base text-text-primary/80
+                  hover:bg-bg-secondary transition-colors">
           Sign in
         </a>
         <a routerLink="/register" (click)="closeMenu()"
-           class="mt-1 px-3 py-2.5 rounded-md text-sm font-medium text-center
-                  bg-accent text-white hover:bg-accent-dark transition-colors">
+           class="mt-2 px-4 py-3 rounded-md text-base font-medium text-center
+                  bg-accent text-white shadow-sm hover:bg-accent-dark hover:shadow-md transition-all">
           Sign up
         </a>
       }

@@ -21,13 +21,13 @@
     </div>
 
     <h1
-      class="text-[52px] font-medium leading-[1.1] tracking-tight text-white mb-5 max-[560px]:text-4xl"
+      class="text-[56px] font-medium leading-[1.1] tracking-tight text-white mb-5 max-[560px]:text-4xl"
     >
       Every street dog<br />
       deserves a <span class="text-accent">known identity</span>
     </h1>
 
-    <p class="text-lg text-white/80 leading-[1.65] mb-10 max-[560px]:text-base">
+    <p class="text-2xl text-white/80 leading-[1.65] mb-10 max-[560px]:text-base">
       PawID lets your community register, track sightings, and build identity
       profiles for stray and lost dogs — so no dog stays unknown forever.
     </p>
@@ -35,13 +35,13 @@
     <div class="flex gap-4 justify-center flex-wrap">
       <a
         routerLink="/dogs/register"
-        class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-sm font-medium text-white bg-accent hover:bg-accent-dark transition-colors"
+        class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-lg font-medium text-white bg-accent hover:bg-accent-dark transition-colors"
       >
         Register a dog →
       </a>
       <a
         routerLink="/dogs"
-        class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-sm text-white bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors"
+        class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-lg text-white bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors"
       >
         Browse profiles
       </a>
@@ -52,72 +52,85 @@
 @if (!loading && !error) {
   <section
     #statsSection
-    class="max-w-[1040px] mx-auto px-8 py-10 max-[720px]:px-4"
+    class="bg-bg-secondary border-y border-border-tertiary/50"
     aria-label="Registry statistics"
   >
-    <div class="grid grid-cols-3 gap-4 max-[640px]:grid-cols-1">
+    <div
+      class="max-w-[1040px] mx-auto px-8 py-12 max-[720px]:px-4 max-[720px]:py-10"
+    >
       <div
-        class="flex items-center gap-4 p-5 rounded-lg bg-bg-secondary border border-border-tertiary/50"
+        class="text-3xl font-medium text-text-secondary uppercase tracking-wider mb-8 text-center"
       >
-        <div
-          class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 bg-accent/15 text-accent text-xl"
-        >
-          🐾
-        </div>
-        <div>
-          <div
-            class="text-3xl font-medium text-text-primary tabular-nums leading-none"
-          >
-            {{ animatedTotalDogs() }}
-          </div>
-          <div
-            class="text-xs text-text-secondary uppercase tracking-wider mt-1.5"
-          >
-            Registered
-          </div>
-        </div>
+        The registry so far
       </div>
 
-      <div
-        class="flex items-center gap-4 p-5 rounded-lg bg-bg-secondary border border-border-tertiary/50"
-      >
+      <div class="grid grid-cols-3 gap-4 max-[640px]:grid-cols-1">
         <div
-          class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 bg-accent/15 text-accent text-xl"
+          class="flex items-center gap-4 p-5 rounded-lg bg-bg-primary border border-border-tertiary/50"
         >
-          👁
-        </div>
-        <div>
           <div
-            class="text-3xl font-medium text-text-primary tabular-nums leading-none"
+            class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-accent"
           >
-            {{ animatedTotalSightings() }}
+            <img src="assets/dog.png" alt=""
+                 class="w-8 h-8 stat-icon--white" />
           </div>
-          <div
-            class="text-xs text-text-secondary uppercase tracking-wider mt-1.5"
-          >
-            Total sightings
+          <div>
+            <div
+              class="text-3xl font-medium text-text-primary tabular-nums leading-none"
+            >
+              {{ animatedTotalDogs() }}
+            </div>
+            <div
+              class="text-text-secondary uppercase tracking-wider mt-1.5"
+            >
+              Registered
+            </div>
           </div>
         </div>
-      </div>
 
-      <div
-        class="flex items-center gap-4 p-5 rounded-lg bg-bg-secondary border border-border-tertiary/50"
-      >
         <div
-          class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 bg-badge-urgent-fg/15 text-badge-urgent-fg text-xl"
+          class="flex items-center gap-4 p-5 rounded-lg bg-bg-primary border border-border-tertiary/50"
         >
-          ⚠
-        </div>
-        <div>
           <div
-            class="text-3xl font-medium text-text-primary tabular-nums leading-none"
+            class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-accent"
           >
-            {{ animatedUrgentCount() }}
+            <img src="assets/sightings.png" alt=""
+                 class="w-8 h-8 stat-icon--white" />
           </div>
+          <div>
+            <div
+              class="text-3xl font-medium text-text-primary tabular-nums leading-none"
+            >
+              {{ animatedTotalSightings() }}
+            </div>
+            <div
+              class="text-text-secondary uppercase tracking-wider mt-1.5"
+            >
+              Total sightings
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center gap-4 p-5 rounded-lg bg-bg-primary border border-border-tertiary/50"
+        >
           <div
-            class="text-xs text-text-secondary uppercase tracking-wider mt-1.5"
+            class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-accent"
           >
-            Need attention
+            <img src="assets/need-attention.png" alt=""
+                 class="w-8 h-8 stat-icon--white" />
+          </div>
+          <div>
+            <div
+              class="text-3xl font-medium text-text-primary tabular-nums leading-none"
+            >
+              {{ animatedUrgentCount() }}
+            </div>
+            <div
+              class="text-text-secondary uppercase tracking-wider mt-1.5"
+            >
+              Need attention
+            </div>
           </div>
         </div>
       </div>
@@ -128,13 +141,13 @@
 <section class="page">
   <header class="flex justify-between items-baseline mb-6">
     <h2
-      class="text-base font-medium text-text-secondary uppercase tracking-wider"
+      class="text-base text-xl font-medium text-text-secondary uppercase tracking-wider"
     >
       Recently registered
     </h2>
     <a
       routerLink="/dogs"
-      class="text-base text-accent hover:text-accent-dark transition-colors"
+      class="text-lg text-accent hover:text-accent-dark transition-colors"
     >
       See all profiles →
     </a>
@@ -166,7 +179,7 @@
     </div>
   } @else {
     <div
-      class="grid grid-cols-4 gap-3 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1"
+      class="grid grid-cols-3 gap-3 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1"
     >
       @for (dog of recentDogs; track dog.id) {
         <app-dog-card [dog]="dog"></app-dog-card>
@@ -182,7 +195,7 @@
 >
   <div class="max-w-[1040px] mx-auto">
     <div
-      class="text-base font-medium text-text-secondary uppercase tracking-wider mb-10"
+      class="text-2xl font-medium text-text-secondary uppercase tracking-wider mb-10"
     >
       How it works
     </div>
@@ -207,14 +220,14 @@
         [class.translate-y-3]="currentStep() < 1"
       >
         <div
-          class="w-12 h-12 rounded-full bg-accent text-white text-base font-medium flex items-center justify-center mx-auto mb-5"
+          class="w-12 h-12 rounded-full bg-accent text-white text-2xl font-medium flex items-center justify-center mx-auto mb-5"
         >
           1
         </div>
-        <div class="text-lg font-medium text-text-primary mb-2">
+        <div class="text-2xl font-medium text-text-primary mb-2">
           Search first
         </div>
-        <div class="text-base text-text-secondary leading-relaxed">
+        <div class="text-lg text-text-secondary leading-relaxed">
           Check if the dog is already registered before adding a new one
         </div>
       </div>
@@ -225,14 +238,14 @@
         [class.translate-y-3]="currentStep() < 2"
       >
         <div
-          class="w-12 h-12 rounded-full bg-accent text-white text-base font-medium flex items-center justify-center mx-auto mb-5"
+          class="w-12 h-12 rounded-full bg-accent text-white text-2xl font-medium flex items-center justify-center mx-auto mb-5"
         >
           2
         </div>
-        <div class="text-lg font-medium text-text-primary mb-2">
+        <div class="text-2xl font-medium text-text-primary mb-2">
           Register or sight
         </div>
-        <div class="text-base text-text-secondary leading-relaxed">
+        <div class="text-lg text-text-secondary leading-relaxed">
           Create a new profile or add a sighting to an existing one
         </div>
       </div>
@@ -243,14 +256,14 @@
         [class.translate-y-3]="currentStep() < 3"
       >
         <div
-          class="w-12 h-12 rounded-full bg-accent text-white text-base font-medium flex items-center justify-center mx-auto mb-5"
+          class="w-12 h-12 rounded-full bg-accent text-white text-2xl font-medium flex items-center justify-center mx-auto mb-5"
         >
           3
         </div>
-        <div class="text-lg font-medium text-text-primary mb-2">
+        <div class="text-2xl font-medium text-text-primary mb-2">
           Build the trail
         </div>
-        <div class="text-base text-text-secondary leading-relaxed">
+        <div class="text-lg text-text-secondary leading-relaxed">
           Community sightings create a movement history over time
         </div>
       </div>
@@ -261,14 +274,14 @@
         [class.translate-y-3]="currentStep() < 4"
       >
         <div
-          class="w-12 h-12 rounded-full bg-accent text-white text-base font-medium flex items-center justify-center mx-auto mb-5"
+          class="w-12 h-12 rounded-full bg-accent text-white text-2xl font-medium flex items-center justify-center mx-auto mb-5"
         >
           4
         </div>
-        <div class="text-lg font-medium text-text-primary mb-2">
+        <div class="text-2xl font-medium text-text-primary mb-2">
           Be part of the effort
         </div>
-        <div class="text-base text-text-secondary leading-relaxed">
+        <div class="text-lg text-text-secondary leading-relaxed">
           Contribute by staying involved and helping others spot and report
         </div>
       </div>
@@ -276,7 +289,6 @@
   </div>
 </section>
 
-<!-- ==================== DONATE FLOATING BUTTON ==================== -->
 <button
   type="button"
   (click)="onDonateClick()"
@@ -297,10 +309,9 @@
       />
     </svg>
   </span>
-  <span class="text-sm font-medium">Donate</span>
+  <span class="text-lg font-medium">Donate</span>
 </button>
 
-<!-- ==================== DONATE MODAL ==================== -->
 @if (showDonateModal()) {
   <app-donate-modal
     (closed)="onDonateClose()"

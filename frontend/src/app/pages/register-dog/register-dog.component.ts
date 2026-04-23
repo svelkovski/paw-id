@@ -10,12 +10,9 @@ import { Router, RouterLink } from "@angular/router";
 import * as L from "leaflet";
 
 import { DogService } from "../../core/services/dog.service";
-import {
-  CreateDogRequest,
-  DogSize,
-  HealthStatus,
-} from "../../core/models/dog.model";
+import { DogSize, HealthStatus } from "../../core/models/dog/dog.model";
 import { WebcamModalComponent } from "../../shared/webcam-modal/webcam-modal";
+import { CreateDogRequest } from "../../core/models/dog/create-dog-request.model";
 
 interface ChipOption<T extends string> {
   value: T;

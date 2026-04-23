@@ -11,10 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Converts exceptions thrown anywhere in a controller into a predictable JSON shape.
- * Frontend code can rely on { timestamp, status, error, message, fieldErrors? } being there.
- */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -29,7 +25,7 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toMap(
                         fe -> fe.getField(),
                         fe -> fe.getDefaultMessage() == null ? "invalid" : fe.getDefaultMessage(),
-                        (a, b) -> a  // keep first error per field
+                        (a, b) -> a
                 ));
         return build(HttpStatus.BAD_REQUEST, "Validation failed", fieldErrors);
     }
@@ -41,7 +37,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex) {
-        // Log in real projects. For MVP we just return a generic 500.
         ex.printStackTrace();
         return build(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected error", null);
     }

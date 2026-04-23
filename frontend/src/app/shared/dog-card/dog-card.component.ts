@@ -2,7 +2,7 @@ import { Component, Input, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
 
 import { DogService } from "../../core/services/dog.service";
-import { DogSummary } from "../../core/models/dog.model";
+import { DogSummary } from "../../core/models/dog/dog-summary.model";
 
 @Component({
   selector: "app-dog-card",

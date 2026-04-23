@@ -19,28 +19,24 @@
   <div class="page !pb-4">
     <a
       routerLink="/dogs"
-      class="inline-flex items-center text-[15px] text-text-secondary hover:text-text-primary transition-colors"
+      class="inline-flex items-center text-lg text-text-secondary hover:text-text-primary transition-colors"
     >
       ← Back to profiles
     </a>
   </div>
 
-  <!-- ==================== HERO (photo or placeholder) ==================== -->
 <section class="max-w-[1040px] mx-auto px-8 max-[720px]:px-4">
   <div class="relative h-[440px] rounded-lg overflow-hidden
               bg-bg-tertiary border border-border-tertiary/50
               max-[560px]:h-[300px]">
     @if (photoUrl; as photo) {
-      <!-- Blurred background layer (fills sides) -->
       <img [src]="photo" alt=""
            aria-hidden="true"
            class="absolute inset-0 w-full h-full object-cover
                   scale-110 blur-2xl opacity-60">
 
-      <!-- Subtle dark overlay to mute the blur so it doesn't compete with the foreground -->
       <div class="absolute inset-0 bg-black/25"></div>
 
-      <!-- Sharp foreground photo, centered at real size -->
       <img [src]="photo" [alt]="dog.displayName"
            class="relative w-auto h-full mx-auto object-contain">
     } @else {
@@ -55,7 +51,6 @@
         </svg>
       </div>
     }
-    <span [class]="badgeClass" class="absolute top-4 left-4 z-10">{{ badgeLabel }}</span>
   </div>
 </section>
 
@@ -65,7 +60,7 @@
         <h1 class="text-4xl font-medium text-text-primary mb-2">
           {{ dog.displayName }}
         </h1>
-        <p class="text-base text-text-secondary">
+        <p class="text-xl text-text-secondary">
           {{ sizeLabel }} · {{ dog.color }}
           @if (dog.initialAreaLabel) {
             · {{ dog.initialAreaLabel }}
@@ -78,7 +73,7 @@
 
       <a
         [routerLink]="['/dogs', dog.id, 'report']"
-        class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-sm font-medium text-white bg-accent hover:bg-accent-dark transition-colors"
+        class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-lg font-medium text-white bg-accent hover:bg-accent-dark transition-colors"
       >
         Report a sighting →
       </a>
@@ -88,11 +83,11 @@
   @if (dog.description) {
     <section class="max-w-[1040px] mx-auto px-8 pt-10 max-[720px]:px-4">
       <div
-        class="text-sm font-medium text-text-secondary uppercase tracking-wider mb-4"
+        class="text-2xl font-medium text-text-secondary uppercase tracking-wider mb-4"
       >
         About this dog
       </div>
-      <p class="text-base text-text-primary leading-relaxed">
+      <p class="text-xl text-text-primary leading-relaxed">
         {{ dog.description }}
       </p>
     </section>
@@ -102,11 +97,11 @@
     <section class="max-w-[1040px] mx-auto px-8 pt-12 max-[720px]:px-4">
       <div class="flex items-baseline justify-between mb-4 flex-wrap gap-2">
         <div
-          class="text-sm font-medium text-text-secondary uppercase tracking-wider"
+          class="text-2xl font-medium text-text-secondary uppercase tracking-wider"
         >
           Location trail
         </div>
-        <div class="text-sm text-text-muted">
+        <div class="text-xl text-text-muted">
           <span
             class="inline-block w-2.5 h-2.5 rounded-full bg-accent align-middle mr-1.5"
           ></span>
@@ -128,7 +123,7 @@
   <section class="page pt-12">
     <div class="flex items-baseline justify-between mb-5">
       <h2
-        class="text-sm font-medium text-text-secondary uppercase tracking-wider"
+        class="text-2xl font-medium text-text-secondary uppercase tracking-wider"
       >
         Sightings ({{ dog.sightings.length }})
       </h2>
@@ -136,7 +131,7 @@
 
     @if (dog.sightings.length === 0) {
       <div
-        class="py-12 px-5 text-center text-base text-text-secondary bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg"
+        class="py-12 px-5 text-center text-xl text-text-secondary bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg"
       >
         No sightings reported yet.
         <a
@@ -167,7 +162,7 @@
                   [class]="healthDotClass(s.healthStatus)"
                 ></span>
                 <span
-                  class="text-base font-medium"
+                  class="text-xl font-medium"
                   [class]="healthTextClass(s.healthStatus)"
                 >
                   {{ healthLabel(s.healthStatus) }}
@@ -175,12 +170,12 @@
               </div>
 
               @if (s.note) {
-                <p class="text-[15px] text-text-primary mb-2 leading-relaxed">
+                <p class="text-lg text-text-primary mb-2 leading-relaxed">
                   {{ s.note }}
                 </p>
               }
 
-              <div class="text-sm text-text-muted">
+              <div class="text-lg text-text-muted">
                 @if (s.areaLabel) {
                   {{ s.areaLabel }} ·
                 }

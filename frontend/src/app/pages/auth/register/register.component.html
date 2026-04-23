@@ -3,7 +3,7 @@
 
     <div class="mb-10">
       <h1 class="text-4xl font-medium text-text-primary mb-3">Create an account</h1>
-      <p class="text-base text-text-secondary">Your name will appear on every sighting you report.</p>
+      <p class="text-2xl text-text-secondary">Your name will appear on every sighting you report.</p>
     </div>
 
     @if (errorMsg) {
@@ -15,37 +15,36 @@
 
     <form (ngSubmit)="submit()" class="flex flex-col gap-6">
       <div class="flex flex-col gap-2">
-        <label class="text-sm font-medium text-text-secondary uppercase tracking-wider">Display name</label>
+        <label class="text-lg font-medium text-text-secondary uppercase tracking-wider">Username</label>
         <input type="text" [(ngModel)]="displayName" name="displayName" required
                placeholder="e.g. Maria K."
-               class="input text-base py-3" />
-        <span class="text-sm text-text-muted">Shown publicly next to your sightings</span>
+               class="input text-lg py-3" />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label class="text-sm font-medium text-text-secondary uppercase tracking-wider">Email</label>
+        <label class="text-lg font-medium text-text-secondary uppercase tracking-wider">Email</label>
         <input type="email" [(ngModel)]="email" name="email" required
                placeholder="you@example.com"
-               class="input text-base py-3" />
+               class="input text-lg py-3" />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label class="text-sm font-medium text-text-secondary uppercase tracking-wider">Password</label>
+        <label class="text-lg font-medium text-text-secondary uppercase tracking-wider">Password</label>
         <input type="password" [(ngModel)]="password" name="password" required
                minlength="6" placeholder="min. 6 characters"
-               class="input text-base py-3" />
+               class="input text-lg py-3" />
       </div>
 
       <div class="flex justify-center mt-4">
         <button type="submit"
-                class="btn-primary w-[240px] rounded-full text-base text-center justify-center"
+                class="btn-primary w-[220px] rounded-full text-xl text-center justify-center"
                 [disabled]="loading">
           {{ loading ? 'Creating account…' : 'Create account' }}
         </button>
       </div>
     </form>
 
-    <p class="text-base text-text-secondary text-center mt-8">
+    <p class="text-xl text-text-secondary text-center mt-8">
       Already have an account?
       <a routerLink="/login" class="text-accent hover:text-accent-dark transition-colors ml-1">
         Sign in →

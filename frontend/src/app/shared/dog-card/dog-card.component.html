@@ -34,7 +34,7 @@
     aria-hidden="true"
   ></div>
 
-  <span [class]="badgeClass" class="absolute top-3 left-3 z-10">
+  <span [class]="badgeClass" class="absolute top-3 left-3 z-10 text-lg">
     {{ badgeLabel }}
   </span>
 
@@ -46,7 +46,7 @@
     </h3>
 
     <p
-      class="mt-2 text-xs text-white/80 uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]"
+      class="mt-2 text-white/80 uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]"
     >
       {{ sizeLabel }} · {{ dog.color }}
       @if (dog.areaLabel) {
@@ -55,7 +55,7 @@
     </p>
 
     <p
-      class="mt-1.5 text-[11px] text-white/70 uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]"
+      class="mt-1.5 text-sm text-white/70 uppercase tracking-wider drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]"
     >
       {{ dog.sightingCount }}
       {{ dog.sightingCount === 1 ? "sighting" : "sightings" }}

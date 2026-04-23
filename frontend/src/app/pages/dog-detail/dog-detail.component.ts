@@ -9,9 +9,10 @@ import {
 } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import * as L from "leaflet";
-
 import { DogService } from "../../core/services/dog.service";
-import { DogDetail, HealthStatus, Sighting } from "../../core/models/dog.model";
+import { DogDetail } from "../../core/models/dog/dog-detail.model";
+import { HealthStatus } from "../../core/models/dog/dog.model";
+import { Sighting } from "../../core/models/sighting/sighting.model";
 
 interface MapPin {
   lat: number;

@@ -9,7 +9,7 @@
     } @else if (dogError) {
       <a
         routerLink="/dogs"
-        class="btn-ghost text-[15px] px-5 py-2.5 mb-6 inline-flex"
+        class="btn-ghost text-lg px-5 py-2.5 mb-6 inline-flex"
         >← Back to profiles</a
       >
       <div
@@ -21,16 +21,15 @@
       <header class="mb-8">
         <a
           [routerLink]="['/dogs', id]"
-          class="inline-flex items-center text-[15px] text-text-secondary hover:text-text-primary transition-colors mb-3"
+          class="inline-flex items-center text-xl text-text-secondary hover:text-text-primary transition-colors mb-3"
         >
           ← Back to profile
         </a>
         <h1 class="text-4xl font-medium text-text-primary mb-2">
           Report a sighting
         </h1>
-        <p class="text-base text-text-secondary">
-          Add your observation to this dog's trail. Only the current health
-          status is required.
+        <p class="text-2xl text-text-secondary">
+          Add your observation to this dog's trail.
         </p>
       </header>
 
@@ -45,19 +44,19 @@
             <img
               [src]="photo"
               [alt]="dog.displayName"
-              class="w-16 h-16 rounded-md object-cover shrink-0"
+              class="w-20 h-20 rounded-md object-cover shrink-0"
             />
           } @else {
             <div class="w-16 h-16 rounded-md bg-bg-tertiary shrink-0"></div>
           }
           <div class="min-w-0">
-            <div class="text-xs uppercase tracking-wider text-text-muted">
+            <div class="text-lg uppercase tracking-wider text-text-muted">
               Reporting a sighting of
             </div>
-            <div class="text-lg font-medium text-text-primary truncate">
+            <div class="text-2xl font-medium text-text-primary truncate">
               {{ dog.displayName }}
             </div>
-            <div class="text-sm text-text-secondary">
+            <div class="text-text-secondary">
               @if (priorSightingCount === 0) {
                 No prior sightings yet.
               } @else {
@@ -74,7 +73,7 @@
         </div>
 
         <div class="form-card">
-          <h2 class="form-card__title text-base">
+          <h2 class="form-card__title text-xl">
             Photo <span class="field-optional">(optional)</span>
           </h2>
 
@@ -127,16 +126,16 @@
         </div>
 
         <div class="form-card">
-          <h2 class="form-card__title text-base">What you observed</h2>
+          <h2 class="form-card__title text-xl">What you observed</h2>
 
           <div class="mb-5">
-            <label class="field-label text-sm">Current health</label>
+            <label class="field-label text-lg">Current health</label>
             <div class="flex gap-2 flex-wrap">
               @for (opt of healthOptions; track opt.value) {
                 <button
                   type="button"
                   (click)="healthStatus = opt.value"
-                  class="chip text-sm px-4 py-1.5"
+                  class="chip text-lg px-4 py-1.5"
                   [class.chip--active]="healthStatus === opt.value"
                   [class.chip--inactive]="healthStatus !== opt.value"
                 >
@@ -150,7 +149,7 @@
           </div>
 
           <div>
-            <label for="note" class="field-label text-sm">
+            <label for="note" class="field-label text-lg">
               Note <span class="field-optional">(optional)</span>
             </label>
             <textarea
@@ -160,19 +159,19 @@
               maxlength="1000"
               rows="3"
               placeholder="What was the dog doing? Any changes you noticed?"
-              class="field-textarea text-[15px]"
+              class="field-textarea text-lg"
             ></textarea>
           </div>
         </div>
 
         <div class="form-card">
-          <h2 class="form-card__title text-base">
+          <h2 class="form-card__title text-xl">
             Where did you see the dog?
             <span class="field-optional">(optional)</span>
           </h2>
 
           <div class="mb-4">
-            <label for="areaLabel" class="field-label text-sm"
+            <label for="areaLabel" class="field-label text-lg"
               >Area label</label
             >
             <input
@@ -182,7 +181,7 @@
               [(ngModel)]="areaLabel"
               maxlength="200"
               placeholder="e.g. Near city park"
-              class="field-input text-[15px]"
+              class="field-input text-lg"
             />
           </div>
 
@@ -191,7 +190,7 @@
               type="button"
               (click)="useMyLocation()"
               [disabled]="locationRequesting"
-              class="btn-ghost text-[15px] px-5 py-2.5 disabled:opacity-60 disabled:cursor-not-allowed"
+              class="btn-ghost text-lg px-5 py-2.5 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {{ locationRequesting ? "Getting location…" : "Use my location" }}
             </button>
@@ -200,15 +199,12 @@
               <button
                 type="button"
                 (click)="clearLocation()"
-                class="btn-ghost text-[15px] px-5 py-2.5"
+                class="btn-ghost text-lg px-5 py-2.5"
               >
                 Clear pin
               </button>
-              <span class="text-sm text-text-muted tabular-nums">
-                {{ latitude.toFixed(5) }}, {{ longitude.toFixed(5) }}
-              </span>
             } @else {
-              <span class="text-sm text-text-muted">
+              <span class="text-lg text-text-muted">
                 …or click on the map to drop a pin
               </span>
             }

@@ -14,10 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.net.URI;
 import java.util.List;
 
-/**
- * Registration uses multipart/form-data so the browser can send both JSON and a photo file
- * in one request. The JSON comes in as a part called "data", the photo as "photo".
- */
 @RestController
 @RequestMapping("/api/dogs")
 public class DogController {

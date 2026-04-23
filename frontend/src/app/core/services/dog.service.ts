@@ -1,14 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import {
-  CreateDogRequest,
-  CreateSightingRequest,
-  DogDetail,
-  DogSummary,
-  Sighting
-} from '../models/dog.model';
+import { CreateDogRequest } from '../models/dog/create-dog-request.model';
+import { DogDetail } from '../models/dog/dog-detail.model';
+import { DogSummary } from '../models/dog/dog-summary.model';
+import { CreateSightingRequest } from '../models/sighting/create-sighting-request.model';
+import { Sighting } from '../models/sighting/sighting.model';
 
 const API_BASE = 'http://localhost:8080';
 

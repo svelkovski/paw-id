@@ -1,17 +1,17 @@
 <section class="page">
   <header class="flex items-end justify-between gap-4 mb-8 flex-wrap">
     <div>
-      <h1 class="text-3xl font-medium text-text-primary mb-2">
+      <h1 class="text-4xl font-medium text-text-primary mb-2">
         Browse profiles
       </h1>
-      <p class="text-base text-text-secondary">
+      <p class="text-xl text-text-secondary">
         Every registered dog in the community.
       </p>
     </div>
 
     <a
       routerLink="/dogs/register"
-      class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-sm font-medium text-white bg-accent hover:bg-accent-dark transition-colors"
+      class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-lg font-medium text-white bg-accent hover:bg-accent-dark transition-colors"
     >
       Register a dog →
     </a>
@@ -60,7 +60,7 @@
     >
       <div class="flex items-center gap-3 px-5 py-4 flex-wrap flex-1 min-w-0">
         <span
-          class="text-sm font-medium uppercase tracking-wider text-text-muted mr-1 shrink-0"
+          class="font-medium uppercase tracking-wider text-text-muted mr-1 shrink-0"
         >
           Size
         </span>
@@ -68,7 +68,7 @@
           <button
             type="button"
             (click)="sizeFilter = chip.value"
-            class="text-sm px-4 py-1.5 rounded-full border transition-colors"
+            class="px-4 py-1.5 rounded-full border transition-colors"
             [class.bg-accent]="sizeFilter === chip.value"
             [class.text-white]="sizeFilter === chip.value"
             [class.border-accent]="sizeFilter === chip.value"
@@ -90,7 +90,7 @@
 
       <div class="flex items-center gap-3 px-5 py-4 flex-wrap flex-1 min-w-0">
         <span
-          class="text-sm font-medium uppercase tracking-wider text-text-muted mr-1 shrink-0"
+          class="font-medium uppercase tracking-wider text-text-muted mr-1 shrink-0"
         >
           Status
         </span>
@@ -98,7 +98,7 @@
           <button
             type="button"
             (click)="statusFilter = chip.value"
-            class="text-sm px-4 py-1.5 rounded-full border transition-colors"
+            class="px-4 py-1.5 rounded-full border transition-colors"
             [class.bg-accent]="statusFilter === chip.value"
             [class.text-white]="statusFilter === chip.value"
             [class.border-accent]="statusFilter === chip.value"

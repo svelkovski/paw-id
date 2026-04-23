@@ -6,10 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-/**
- * Input payload for POST /api/dogs. Arrives as the JSON part of a multipart/form-data request.
- * The photo (if any) arrives as a separate part called "photo".
- */
 public record CreateDogRequest(
 
         @Size(max = 100)

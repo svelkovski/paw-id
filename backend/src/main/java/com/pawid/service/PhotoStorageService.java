@@ -46,7 +46,6 @@ public class PhotoStorageService {
         String filename = UUID.randomUUID() + "." + extension;
         Path target = uploadsRoot.resolve(filename).normalize();
 
-        // Guard against path traversal — the resolved path must still live under uploadsRoot.
         if (!target.startsWith(uploadsRoot)) {
             throw new IllegalArgumentException("Invalid photo path");
         }

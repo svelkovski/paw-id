@@ -14,7 +14,8 @@ import { DogService } from "../../core/services/dog.service";
 import { DogSummary } from "../../core/models/dog.model";
 import { DogCardComponent } from "../../shared/dog-card/dog-card.component";
 import { DonateModalComponent } from '../../shared/donate-modal/donate-modal';
-
+import { HttpClient } from '@angular/common/http';
+import { ToastService } from '../../core/services/toast.service';
 
 @Component({
   selector: "app-home",
@@ -24,6 +25,8 @@ import { DonateModalComponent } from '../../shared/donate-modal/donate-modal';
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly dogService = inject(DogService);
+  private readonly http = inject(HttpClient);
+  private readonly toast = inject(ToastService);
 
   dogs: DogSummary[] = [];
   loading = true;
@@ -214,8 +217,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   onDonateSubmit(amount: number): void {
     // TODO: wire up to a real payment provider.
     // For now, log the amount and close — replace with Stripe/PayPal redirect later.
-    console.log('Donation requested:', amount, 'EUR');
+    // console.log('Donation requested:', amount, 'EUR');
     this.showDonateModal.set(false);
-    alert(`Thank you! Proceeding to payment for €${amount}. (Payment provider not yet configured.)`);
+    // alert(`Thank you! Proceeding to payment for €${amount}. (Payment provider not yet configured.)`);
+    setTimeout(() => {
+    this.toast.success(
+      'Thank you for your donation!',
+      `Your €${amount} contribution will help our dogs. (Demo — no payment was processed.)`
+    );
+  }, 400);
+
   }
 }

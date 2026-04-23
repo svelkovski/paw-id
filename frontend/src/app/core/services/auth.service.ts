@@ -2,40 +2,14 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable, signal, computed } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, tap } from "rxjs";
+import { AuthResponse } from "../models/auth/auth-response.model";
+import { AuthUser } from "../models/auth/auth-user.model";
+import { LoginRequest } from "../models/auth/login-request.model";
+import { RegisterRequest } from "../models/auth/register-request.model";
 
 const API_BASE = "http://localhost:8080";
 const TOKEN_KEY = "jwt_token";
 const USER_KEY = "pawid_user";
-
-export interface AuthUser {
-  userId: number;
-  email: string;
-  displayName: string;
-}
-
-export interface RegisterRequest {
-  email: string;
-  password: string;
-  displayName: string;
-}
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface AuthResponse {
-  token: string;
-  userId: number;
-  email: string;
-  displayName: string;
-}
-
-export interface TopContributor {
-  userId: number;
-  displayName: string;
-  sightingCount: number;
-}
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -68,12 +42,6 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem(TOKEN_KEY);
-  }
-
-  getTopContributor(): Observable<TopContributor> {
-    return this.http.get<TopContributor>(
-      `${API_BASE}/api/stats/top-contributor`,
-    );
   }
 
   private persist(res: AuthResponse): void {

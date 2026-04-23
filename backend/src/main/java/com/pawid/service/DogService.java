@@ -75,12 +75,6 @@ public class DogService {
         return DogSummary.from(d, sightings.size(), latest, photoUrl(d.getPhotoFilename()), computeBadge(d, sightings));
     }
 
-    /**
-     * Badge rules (intentionally simple — students should be able to read this and tweak it):
-     *   URGENT  — latest observation is INJURED or SICK
-     *   NEW     — created in the last 48 hours and has no sightings yet
-     *   ACTIVE  — everything else
-     */
     private String computeBadge(Dog dog, List<Sighting> sightings) {
         HealthStatus latest = sightings.isEmpty() ? dog.getInitialHealthStatus() : sightings.get(0).getHealthStatus();
         if (latest == HealthStatus.INJURED || latest == HealthStatus.SICK) {
@@ -93,7 +87,6 @@ public class DogService {
         return "ACTIVE";
     }
 
-    /** Build a fully-qualified URL the frontend can use in an <img src>. */
     private String photoUrl(String filename) {
         if (filename == null || filename.isBlank()) return null;
         return "/uploads/" + filename;

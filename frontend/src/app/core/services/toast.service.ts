@@ -7,14 +7,12 @@ export interface Toast {
   kind: ToastKind;
   title: string;
   message?: string;
-  /** Auto-dismiss after this many ms. 0 = stay until manually closed. */
   durationMs: number;
 }
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
 
-  // Read-only signal exposed to the container component.
   private readonly _toasts = signal<Toast[]>([]);
   readonly toasts = this._toasts.asReadonly();
 
@@ -41,7 +39,6 @@ export class ToastService {
     const toast: Toast = { id, kind, title, message, durationMs };
     this._toasts.update(list => [...list, toast]);
 
-    // Auto-dismiss unless durationMs is 0 (sticky).
     if (durationMs > 0) {
       setTimeout(() => this.dismiss(id), durationMs);
     }

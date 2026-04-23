@@ -1,9 +1,7 @@
-<!-- Backdrop -->
 <div
   class="fixed inset-0 z-10 flex items-center justify-center bg-black/70 p-4"
   (click)="onBackdropClick()"
 >
-  <!-- Dialog -->
   <div
     class="relative w-full max-w-[480px] bg-bg-primary border border-border-tertiary/50 rounded-xl p-7 max-sm:p-5"
     (click)="$event.stopPropagation()"
@@ -11,7 +9,6 @@
     aria-modal="true"
     aria-labelledby="donate-title"
   >
-    <!-- Close button -->
     <button
       type="button"
       (click)="close()"
@@ -21,7 +18,6 @@
       ✕
     </button>
 
-    <!-- Icon + heading -->
     <div class="text-center mb-6">
       <div
         class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-accent/15 text-accent mb-3"
@@ -45,7 +41,6 @@
       </p>
     </div>
 
-    <!-- Amount chips -->
     <div class="flex flex-col gap-2 mb-5">
       <label class="font-medium text-text-secondary uppercase tracking-wider">
         Choose amount (EUR)
@@ -67,7 +62,6 @@
       </button>
     </div>
 
-    <!-- Custom amount input (only when 'custom' is selected) -->
     @if (selected() === 'custom') {
     <div class="flex flex-col gap-1.5 mb-5">
       <label
@@ -93,7 +87,6 @@
     </div>
     }
 
-    <!-- Donate button -->
     <button
       type="button"
       (click)="onDonate()"

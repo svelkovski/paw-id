@@ -17,9 +17,6 @@ public class StatsController {
         this.authService = authService;
     }
 
-    /**
-     * Returns the user with the most sightings, or 204 No Content if nobody has reported anything yet.
-     */
     @GetMapping("/top-contributor")
     public ResponseEntity<TopContributorResponse> topContributor() {
         return authService.getTopContributor()

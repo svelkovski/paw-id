@@ -17,12 +17,9 @@ export class HeaderComponent {
   readonly auth = inject(AuthService);
   private readonly router = inject(Router);
 
-  // Controls the mobile burger panel.
   readonly menuOpen = signal(false);
 
   constructor() {
-    // Close the menu whenever the route changes — otherwise it stays open
-    // after clicking a link inside it.
     this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
       .subscribe(() => this.menuOpen.set(false));
@@ -41,10 +38,6 @@ export class HeaderComponent {
     this.closeMenu();
   }
 
-  /**
-   * Close the menu if the viewport grows past the md breakpoint (768px) —
-   * otherwise resizing from mobile to desktop leaves a stale open panel.
-   */
   @HostListener('window:resize')
   onResize(): void {
     if (window.innerWidth >= 768 && this.menuOpen()) {

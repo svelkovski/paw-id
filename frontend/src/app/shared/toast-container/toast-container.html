@@ -1,59 +1,79 @@
-<!-- Stacked top-right. pointer-events-none on the wrapper so clicks
-         pass through empty space; individual toasts re-enable it. -->
-    <div class="fixed top-20 right-4 z-[100] flex flex-col gap-2
-                pointer-events-none max-w-[calc(100vw-2rem)] w-[360px]">
-      @for (t of toast.toasts(); track t.id) {
-        <div [class]="cardClass(t.kind)"
-             role="status"
-             class="pointer-events-auto flex items-start gap-3 p-4 rounded-lg
-                    border shadow-lg
-                    animate-[slide-in_0.25s_ease-out]">
+<div
+  class="fixed top-20 right-4 z-[100] flex flex-col gap-2 pointer-events-none max-w-[calc(100vw-2rem)] w-[360px]"
+>
+  @for (t of toast.toasts(); track t.id) {
+  <div
+    [class]="cardClass(t.kind)"
+    role="status"
+    class="pointer-events-auto flex items-start gap-3 p-4 rounded-lg border shadow-lg animate-[slide-in_0.25s_ease-out]"
+  >
+    <span class="shrink-0 w-5 h-5 mt-0.5">
+      @switch (t.kind) { @case ('success') {
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M20 6L9 17l-5-5" />
+      </svg>
+      } @case ('error') {
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 8v4M12 16h.01" />
+      </svg>
+      } @default {
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 16v-4M12 8h.01" />
+      </svg>
+      } }
+    </span>
 
-          <!-- Icon by kind -->
-          <span class="shrink-0 w-5 h-5 mt-0.5">
-            @switch (t.kind) {
-              @case ('success') {
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              }
-              @case ('error') {
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 8v4M12 16h.01" />
-                </svg>
-              }
-              @default {
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 16v-4M12 8h.01" />
-                </svg>
-              }
-            }
-          </span>
-
-          <!-- Body -->
-          <div class="flex-1 min-w-0">
-            <div class="text-base text-lg font-bold leading-tight">{{ t.title }}</div>
-@if (t.message) {
-  <div class="text-md mt-1 opacity-90 leading-relaxed">{{ t.message }}</div>
-}
-          </div>
-
-          <!-- Close button -->
-          <button type="button"
-                  (click)="toast.dismiss(t.id)"
-                  aria-label="Dismiss"
-                  class="shrink-0 w-6 h-6 -mt-1 -mr-1 rounded
-                         opacity-60 hover:opacity-100 transition-opacity">
-            <svg class="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" aria-hidden="true">
-              <path d="M6 6l12 12M6 18L18 6" />
-            </svg>
-          </button>
-        </div>
+    <div class="flex-1 min-w-0">
+      <div class="text-base text-lg font-bold leading-tight">{{ t.title }}</div>
+      @if (t.message) {
+      <div class="text-md mt-1 opacity-90 leading-relaxed">{{ t.message }}</div>
       }
     </div>
+
+    <button
+      type="button"
+      (click)="toast.dismiss(t.id)"
+      aria-label="Dismiss"
+      class="shrink-0 w-6 h-6 -mt-1 -mr-1 rounded opacity-60 hover:opacity-100 transition-opacity"
+    >
+      <svg
+        class="w-full h-full"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M6 6l12 12M6 18L18 6" />
+      </svg>
+    </button>
+  </div>
+  }
+</div>

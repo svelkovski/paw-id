@@ -1,19 +1,9 @@
 <app-header></app-header>
+
 <app-toast-container></app-toast-container>
+
 <main class="flex-1 min-h-0 flex flex-col">
   <router-outlet></router-outlet>
 </main>
 
-<footer class="flex items-center justify-between px-8 py-4.5
-               border-t border-border-tertiary/50
-               text-[13px] text-text-secondary
-               h-[60px] box-border shrink-0
-               max-[560px]:flex-col max-[560px]:gap-2.5 max-[560px]:text-center max-[560px]:px-4">
-  <span>© 2026 PawID · Built with Angular + Spring Boot</span>
-  <nav class="flex gap-5" aria-label="Footer links">
-    <a routerLink="/about"   class="hover:text-text-primary transition-colors">About</a>
-    <a routerLink="/privacy" class="hover:text-text-primary transition-colors">Privacy</a>
-    <a href="https://lajka.com.mk/kontakt/" target="_blank" rel="noopener noreferrer"
-       class="hover:text-text-primary transition-colors">Contact</a>
-  </nav>
-</footer>
+<app-footer></app-footer>

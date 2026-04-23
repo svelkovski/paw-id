@@ -1,12 +1,10 @@
 <nav class="sticky top-0 z-50 bg-bg-primary border-b border-border-tertiary/50">
   <div class="flex items-center justify-between px-10 py-3.5 max-md:px-4">
 
-    <!-- Left: logo -->
     <a routerLink="/" aria-label="PawID home" (click)="closeMenu()">
       <app-logo></app-logo>
     </a>
 
-    <!-- Center: desktop nav (hidden on mobile) -->
     <div class="flex gap-9 max-md:hidden">
       <a routerLink="/dogs"
         routerLinkActive="text-accent font-medium"
@@ -50,7 +48,6 @@
         }
       </div>
 
-      <!-- Burger button (mobile only) -->
       <button type="button"
               (click)="toggleMenu()"
               [attr.aria-expanded]="menuOpen()"
@@ -59,7 +56,6 @@
               class="md:hidden w-9 h-9 flex items-center justify-center
                      rounded-md text-text-secondary
                      hover:bg-bg-secondary hover:text-text-primary transition-colors">
-        <!-- Hamburger / close icon — swap based on state -->
         @if (menuOpen()) {
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" aria-hidden="true">
@@ -75,7 +71,6 @@
     </div>
   </div>
 
-  <!-- Mobile dropdown panel -->
   @if (menuOpen()) {
     <div id="mobile-menu"
          class="md:hidden border-t border-border-tertiary/50 bg-bg-primary
@@ -109,10 +104,8 @@
         How it works
       </a>
 
-      <!-- Divider -->
       <div class="border-t border-border-tertiary/50 my-2"></div>
 
-      <!-- Auth section -->
       @if (auth.isLoggedIn()) {
         <div class="px-4 py-2 flex items-center gap-2.5">
           <div class="w-7 h-7 rounded-full bg-accent/15 text-accent text-xs font-medium

@@ -11,11 +11,11 @@ import {
 import { RouterLink } from "@angular/router";
 
 import { DogService } from "../../core/services/dog.service";
-import { DogSummary } from "../../core/models/dog.model";
 import { DogCardComponent } from "../../shared/dog-card/dog-card.component";
-import { DonateModalComponent } from '../../shared/donate-modal/donate-modal';
-import { HttpClient } from '@angular/common/http';
-import { ToastService } from '../../core/services/toast.service';
+import { DonateModalComponent } from "../../shared/donate-modal/donate-modal";
+import { HttpClient } from "@angular/common/http";
+import { ToastService } from "../../core/services/toast.service";
+import { DogSummary } from "../../core/models/dog/dog-summary.model";
 
 @Component({
   selector: "app-home",
@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild("howItWorks") howItWorksRef?: ElementRef<HTMLElement>;
 
-  // Controls the donate modal visibility.
   readonly showDonateModal = signal(false);
 
   @ViewChild("statsSection")
@@ -115,7 +114,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
 
     this.howItWorksObserver.observe(this.howItWorksRef.nativeElement);
@@ -131,18 +130,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             this.animateCounter(
               this.animatedTotalSightings,
               this.totalSightings,
-              1600
+              1600,
             );
             this.animateCounter(
               this.animatedUrgentCount,
               this.urgentCount,
-              1200
+              1200,
             );
             this.statsObserver?.disconnect();
           }
         }
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
 
     this.statsObserver.observe(element);
@@ -151,7 +150,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private animateCounter(
     target: ReturnType<typeof signal<number>>,
     toValue: number,
-    duration: number
+    duration: number,
   ): void {
     if (toValue === 0) {
       target.set(0);
@@ -204,8 +203,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.animationFrames = [];
   }
 
-  // --- donate modal handlers ---
-
   onDonateClick(): void {
     this.showDonateModal.set(true);
   }
@@ -217,15 +214,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   onDonateSubmit(amount: number): void {
     // TODO: wire up to a real payment provider.
     // For now, log the amount and close — replace with Stripe/PayPal redirect later.
-    // console.log('Donation requested:', amount, 'EUR');
     this.showDonateModal.set(false);
-    // alert(`Thank you! Proceeding to payment for €${amount}. (Payment provider not yet configured.)`);
     setTimeout(() => {
-    this.toast.success(
-      'Thank you for your donation!',
-      `Your €${amount} contribution will help our dogs. (Demo — no payment was processed.)`
-    );
-  }, 400);
-
+      this.toast.success(
+        "Thank you for your donation!",
+        `Your €${amount} contribution will help our dogs. (Demo — no payment was processed.)`,
+      );
+    }, 400);
   }
 }

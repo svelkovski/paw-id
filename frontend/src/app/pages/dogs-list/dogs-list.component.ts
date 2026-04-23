@@ -3,8 +3,9 @@ import { FormsModule } from "@angular/forms";
 import { RouterLink } from "@angular/router";
 
 import { DogService } from "../../core/services/dog.service";
-import { DogBadge, DogSize, DogSummary } from "../../core/models/dog.model";
 import { DogCardComponent } from "../../shared/dog-card/dog-card.component";
+import { DogSummary } from "../../core/models/dog/dog-summary.model";
+import { DogSize, DogBadge } from "../../core/models/dog/dog.model";
 
 type SizeFilter = "ALL" | DogSize;
 type StatusFilter = "ALL" | DogBadge;

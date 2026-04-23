@@ -1,32 +1,41 @@
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
-         (click)="onOverlayClick($event)">
-      <div class="bg-bg-primary rounded-xl p-5 flex flex-col gap-4 w-full max-w-[480px] mx-4"
-           (click)="$event.stopPropagation()">
-
-        <div class="flex items-center justify-between">
-          <span class="text-sm font-medium text-text-primary">Take a photo</span>
-          <button type="button" (click)="cancel()"
-                  class="text-text-muted hover:text-text-primary transition-colors text-lg leading-none">
-            ✕
-          </button>
-        </div>
-
-        <webcam
-          [trigger]="triggerObservable"
-          [allowCameraSwitch]="true"
-          [imageQuality]="0.92"
-          (imageCapture)="onCapture($event)"
-          (initError)="onError($event)"
-          class="rounded-lg overflow-hidden block">
-        </webcam>
-
-        @if (errorMsg) {
-          <p class="text-xs text-badge-urgent-fg">{{ errorMsg }}</p>
-        }
-
-        <div class="flex gap-2.5 justify-end">
-          <button type="button" class="btn-ghost" (click)="cancel()">Cancel</button>
-          <button type="button" class="btn-primary" (click)="trigger()">Capture</button>
-        </div>
-      </div>
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+  (click)="onOverlayClick($event)"
+>
+  <div
+    class="bg-bg-primary rounded-xl p-5 flex flex-col gap-4 w-full max-w-[480px] mx-4"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="flex items-center justify-between">
+      <span class="text-sm font-medium text-text-primary">Take a photo</span>
+      <button
+        type="button"
+        (click)="cancel()"
+        class="text-text-muted hover:text-text-primary transition-colors text-lg leading-none"
+      >
+        ✕
+      </button>
     </div>
+
+    <webcam
+      [trigger]="triggerObservable"
+      [allowCameraSwitch]="true"
+      [imageQuality]="0.92"
+      (imageCapture)="onCapture($event)"
+      (initError)="onError($event)"
+      class="rounded-lg overflow-hidden block"
+    >
+    </webcam>
+
+    @if (errorMsg) {
+    <p class="text-xs text-badge-urgent-fg">{{ errorMsg }}</p>
+    }
+
+    <div class="flex gap-2.5 justify-end">
+      <button type="button" class="btn-ghost" (click)="cancel()">Cancel</button>
+      <button type="button" class="btn-primary" (click)="trigger()">
+        Capture
+      </button>
+    </div>
+  </div>
+</div>

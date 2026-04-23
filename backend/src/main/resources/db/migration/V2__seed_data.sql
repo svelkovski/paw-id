@@ -1,6 +1,3 @@
--- V2 - Seed data
--- Sample dogs using the correct column names from V1.
-
 INSERT INTO dog (name, size, color, description, photo_filename, initial_health_status, initial_area_label, initial_latitude, initial_longitude) VALUES
     ('Buddy',  'MEDIUM', 'brown',  'Friendly brown dog, always wagging tail. Missing left ear.',            NULL, 'HEALTHY',         'Old Bazaar, Skopje',    41.9973, 21.4280),
     ('Luna',   'SMALL',  'white',  'White and black spotted female. Limping on front right leg.',           NULL, 'NEEDS_ATTENTION', 'City Park, Skopje',     41.9938, 21.4072),

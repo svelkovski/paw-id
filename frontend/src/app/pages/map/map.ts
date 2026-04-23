@@ -184,10 +184,20 @@ export class MapPageComponent implements OnInit, OnDestroy {
       });
 
       const marker = L.marker([pin.lat, pin.lng], { icon }).addTo(this.map);
-      marker.bindPopup(
-        `<div style="font-size: 13px; font-weight: 500;">${escapeHtml(pin.displayName)}</div>
-         <div style="font-size: 11px; opacity: .7; margin-top: 2px;">Click pin to view profile</div>`
-      );
+     marker.bindTooltip(
+  `<div class="pawid-card">
+     <div class="pawid-card__title">${escapeHtml(pin.displayName)}</div>
+     <div class="pawid-card__meta">
+       ${pin.kind === 'sighting' ? 'Latest sighting' : 'Registered location'}
+     </div>
+   </div>`,
+  {
+    direction: 'top',
+    offset: [0, -10],
+    opacity: 1,
+    sticky: true 
+  }
+);
 
       // Navigate to the dog's detail page on marker click.
       // We run this inside NgZone via router.navigate — which is already

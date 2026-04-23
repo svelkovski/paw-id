@@ -23,11 +23,6 @@ interface ChipOption<T extends string> {
   label: string;
 }
 
-/**
- * Map center used as a last resort — only applies if the dog has no known
- * coordinates anywhere (no initial registration lat/lng, no sightings with
- * coordinates). Skopje city center, matching the seed data.
- */
 const FALLBACK_CENTER: L.LatLngExpression = [41.9981, 21.4254];
 
 @Component({

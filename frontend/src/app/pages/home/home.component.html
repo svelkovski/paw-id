@@ -1,81 +1,110 @@
-<section
-  class="max-w-[720px] mx-auto px-8 pt-20 pb-16 text-center max-[560px]:px-5 max-[560px]:pt-14 max-[560px]:pb-10"
->
+<section class="relative overflow-hidden">
   <div
-    class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 bg-accent-soft text-accent-soft-fg rounded-full text-sm"
-  >
-    <span class="w-2 h-2 rounded-full bg-accent" aria-hidden="true"></span>
-    Community-powered stray dog registry
-  </div>
+    class="absolute inset-0 bg-cover bg-center"
+    style="background-image: url(&quot;assets/hero2.jpg&quot;)"
+    aria-hidden="true"
+  ></div>
 
-  <h1
-    class="text-[52px] font-medium leading-[1.1] tracking-tight text-text-primary mb-5 max-[560px]:text-4xl"
-  >
-    Every street dog<br />
-    deserves a <span class="text-accent">known identity</span>
-  </h1>
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/75"
+    aria-hidden="true"
+  ></div>
 
-  <p
-    class="text-lg text-text-secondary leading-[1.65] mb-10 max-[560px]:text-base"
+  <div
+    class="relative max-w-[720px] mx-auto px-8 pt-32 pb-28 text-center max-[560px]:px-5 max-[560px]:pt-14 max-[560px]:pb-10"
   >
-    PawID lets your community register, track sightings, and build identity
-    profiles for stray and lost dogs — so no dog stays unknown forever.
-  </p>
-
-  <div class="flex gap-4 justify-center flex-wrap">
-    <a
-      routerLink="/dogs/register"
-      class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-sm font-medium text-white bg-accent hover:bg-accent-dark transition-colors"
+    <div
+      class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-full text-sm"
     >
-      Register a dog →
-    </a>
-    <a
-      routerLink="/dogs"
-      class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-sm text-text-primary bg-transparent border border-border-secondary/50 hover:bg-bg-secondary hover:border-border-primary transition-colors"
+      <span class="w-2 h-2 rounded-full bg-accent" aria-hidden="true"></span>
+      Community-powered stray dog registry
+    </div>
+
+    <h1
+      class="text-[52px] font-medium leading-[1.1] tracking-tight text-white mb-5 max-[560px]:text-4xl"
     >
-      Browse profiles
-    </a>
+      Every street dog<br />
+      deserves a <span class="text-accent">known identity</span>
+    </h1>
+
+    <p class="text-lg text-white/80 leading-[1.65] mb-10 max-[560px]:text-base">
+      PawID lets your community register, track sightings, and build identity
+      profiles for stray and lost dogs — so no dog stays unknown forever.
+    </p>
+
+    <div class="flex gap-4 justify-center flex-wrap">
+      <a
+        routerLink="/dogs/register"
+        class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-sm font-medium text-white bg-accent hover:bg-accent-dark transition-colors"
+      >
+        Register a dog →
+      </a>
+      <a
+        routerLink="/dogs"
+        class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-sm text-white bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors"
+      >
+        Browse profiles
+      </a>
+    </div>
   </div>
 </section>
 
 @if (!loading && !error) {
-  <section
-    class="flex justify-center gap-14 px-8 py-7 border-y border-border-tertiary/50 bg-bg-secondary max-[560px]:gap-8 max-[560px]:px-4 max-[560px]:py-6"
-    aria-label="Registry statistics"
-  >
-    <div class="text-center">
-      <div class="text-[26px] font-medium text-text-primary tabular-nums">
-        {{ totalDogs }}
+  <section class="max-w-[1040px] mx-auto px-8 py-10 max-[720px]:px-4"
+         aria-label="Registry statistics">
+  <div class="grid grid-cols-3 gap-4 max-[640px]:grid-cols-1">
+
+    <!-- Registered -->
+    <div class="flex items-center gap-4 p-5 rounded-lg
+                bg-bg-secondary border border-border-tertiary/50">
+      <div class="w-11 h-11 rounded-full flex items-center justify-center shrink-0
+                  bg-accent/15 text-accent text-xl">🐾</div>
+      <div>
+        <div class="text-3xl font-medium text-text-primary tabular-nums leading-none">{{ totalDogs }}</div>
+        <div class="text-xs text-text-secondary uppercase tracking-wider mt-1.5">Registered</div>
       </div>
-      <div class="text-sm text-text-secondary mt-1">Registered dogs</div>
     </div>
-    <div class="text-center">
-      <div class="text-[26px] font-medium text-text-primary tabular-nums">
-        {{ totalSightings }}
+
+    <!-- Sightings -->
+    <div class="flex items-center gap-4 p-5 rounded-lg
+                bg-bg-secondary border border-border-tertiary/50">
+      <div class="w-11 h-11 rounded-full flex items-center justify-center shrink-0
+                  bg-accent/15 text-accent text-xl">👁</div>
+      <div>
+        <div class="text-3xl font-medium text-text-primary tabular-nums leading-none">{{ totalSightings }}</div>
+        <div class="text-xs text-text-secondary uppercase tracking-wider mt-1.5">Total sightings</div>
       </div>
-      <div class="text-sm text-text-secondary mt-1">Total sightings</div>
     </div>
-    <div class="text-center">
-      <div class="text-[26px] font-medium text-text-primary tabular-nums">
-        {{ urgentCount }}
+
+    <!-- Need attention -->
+    <div class="flex items-center gap-4 p-5 rounded-lg
+                bg-bg-secondary border border-border-tertiary/50">
+      <div class="w-11 h-11 rounded-full flex items-center justify-center shrink-0
+                  bg-badge-urgent-fg/15 text-badge-urgent-fg text-xl">⚠</div>
+      <div>
+        <div class="text-3xl font-medium text-text-primary tabular-nums leading-none">{{ urgentCount }}</div>
+        <div class="text-xs text-text-secondary uppercase tracking-wider mt-1.5">Need attention</div>
       </div>
-      <div class="text-sm text-text-secondary mt-1">Need attention</div>
     </div>
-  </section>
+
+  </div>
+</section>
 }
 
 <section class="page">
   <header class="flex justify-between items-baseline mb-6">
-  <h2 class="text-base font-medium text-text-secondary uppercase tracking-wider">
-    Recently registered
-  </h2>
-  <a
-    routerLink="/dogs"
-    class="text-base text-accent hover:text-accent-dark transition-colors"
-  >
-    See all profiles →
-  </a>
-</header>
+    <h2
+      class="text-base font-medium text-text-secondary uppercase tracking-wider"
+    >
+      Recently registered
+    </h2>
+    <a
+      routerLink="/dogs"
+      class="text-base text-accent hover:text-accent-dark transition-colors"
+    >
+      See all profiles →
+    </a>
+  </header>
 
   @if (loading) {
     <div
@@ -113,6 +142,7 @@
 </section>
 
 <section
+  #howItWorks
   id="how-it-works"
   class="bg-bg-secondary border-t border-border-tertiary/50 px-8 pt-14 pb-16 max-[560px]:px-5 max-[560px]:pt-10 max-[560px]:pb-12"
 >
@@ -131,7 +161,17 @@
         aria-hidden="true"
       ></div>
 
-      <div class="relative z-10 text-center px-4">
+      <div
+        class="absolute top-6 left-[12.5%] right-[12.5%] h-px bg-accent origin-left transition-transform duration-500 ease-out z-0 max-[900px]:hidden"
+        [style.transform]="'scaleX(' + lineProgress() + ')'"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="relative z-10 text-center px-4 transition-all duration-500 ease-out"
+        [class.opacity-0]="currentStep() < 1"
+        [class.translate-y-3]="currentStep() < 1"
+      >
         <div
           class="w-12 h-12 rounded-full bg-accent text-white text-base font-medium flex items-center justify-center mx-auto mb-5"
         >
@@ -145,7 +185,11 @@
         </div>
       </div>
 
-      <div class="relative z-10 text-center px-4">
+      <div
+        class="relative z-10 text-center px-4 transition-all duration-500 ease-out"
+        [class.opacity-0]="currentStep() < 2"
+        [class.translate-y-3]="currentStep() < 2"
+      >
         <div
           class="w-12 h-12 rounded-full bg-accent text-white text-base font-medium flex items-center justify-center mx-auto mb-5"
         >
@@ -159,7 +203,11 @@
         </div>
       </div>
 
-      <div class="relative z-10 text-center px-4">
+      <div
+        class="relative z-10 text-center px-4 transition-all duration-500 ease-out"
+        [class.opacity-0]="currentStep() < 3"
+        [class.translate-y-3]="currentStep() < 3"
+      >
         <div
           class="w-12 h-12 rounded-full bg-accent text-white text-base font-medium flex items-center justify-center mx-auto mb-5"
         >
@@ -173,17 +221,21 @@
         </div>
       </div>
 
-      <div class="relative z-10 text-center px-4">
+      <div
+        class="relative z-10 text-center px-4 transition-all duration-500 ease-out"
+        [class.opacity-0]="currentStep() < 4"
+        [class.translate-y-3]="currentStep() < 4"
+      >
         <div
           class="w-12 h-12 rounded-full bg-accent text-white text-base font-medium flex items-center justify-center mx-auto mb-5"
         >
           4
         </div>
         <div class="text-lg font-medium text-text-primary mb-2">
-          Rehome or resolve
+          Be part of the effort
         </div>
         <div class="text-base text-text-secondary leading-relaxed">
-          Mark a profile resolved when the dog is rehomed or reunited
+          Contribute by staying involved and helping others spot and report
         </div>
       </div>
     </div>

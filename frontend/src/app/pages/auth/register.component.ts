@@ -1,4 +1,14 @@
-<section class="page flex items-center justify-center min-h-[calc(100vh-58px-60px)]">
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+
+@Component({
+  selector: 'app-register',
+  standalone: true,
+  imports: [FormsModule, RouterLink],
+  template: `
+    <section class="page flex items-center justify-center min-h-[calc(100vh-58px-60px)]">
   <div class="w-full max-w-[640px] p-8 max-sm:p-6">
 
     <div class="mb-10">
@@ -6,10 +16,10 @@
       <p class="text-base text-text-secondary">Your name will appear on every sighting you report.</p>
     </div>
 
-    @if (errorMsg) {
+    @if (errorMsg()) {
       <div class="mb-6 px-4 py-3 rounded-lg text-sm
                   bg-badge-urgent-fg/10 text-badge-urgent-fg border border-badge-urgent-fg/20">
-        {{ errorMsg }}
+        {{ errorMsg() }}
       </div>
     }
 
@@ -39,8 +49,8 @@
       <div class="flex justify-center mt-4">
         <button type="submit"
                 class="btn-primary w-[240px] rounded-full text-base text-center justify-center"
-                [disabled]="loading">
-          {{ loading ? 'Creating account…' : 'Create account' }}
+                [disabled]="loading()">
+          {{ loading() ? 'Creating account…' : 'Create account' }}
         </button>
       </div>
     </form>
@@ -53,3 +63,27 @@
     </p>
   </div>
 </section>
+  `
+})
+export class RegisterComponent {
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
+
+  displayName = '';
+  email = '';
+  password = '';
+  loading = signal(false);
+  errorMsg = signal<string | null>(null);
+
+  submit(): void {
+    this.errorMsg.set(null);
+    this.loading.set(true);
+    this.auth.register({ displayName: this.displayName, email: this.email, password: this.password }).subscribe({
+      next: () => this.router.navigateByUrl('/'),
+      error: (err) => {
+        this.errorMsg.set(err?.status === 409 ? 'This email is already registered.' : 'Something went wrong.');
+        this.loading.set(false);
+      }
+    });
+  }
+}

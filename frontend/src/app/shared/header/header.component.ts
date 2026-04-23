@@ -1,13 +1,17 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { LogoComponent } from '../logo/logo.component';
-import { AuthService } from '../../core/services/auth.service';
+import { Component, inject } from "@angular/core";
+import { RouterLink, RouterLinkActive } from "@angular/router";
+import { LogoComponent } from "../logo/logo.component";
+import { AuthService } from "../../core/services/auth.service";
 
 @Component({
-  selector: 'app-header',
+  selector: "app-header",
   standalone: true,
   imports: [RouterLink, RouterLinkActive, LogoComponent],
-  templateUrl: './header.component.html'
+  templateUrl: "./header.component.html",
+  host: {
+    class:
+      "sticky top-0 z-30 block bg-bg-primary border-b border-border-tertiary/50",
+  },
 })
 export class HeaderComponent {
   readonly auth = inject(AuthService);

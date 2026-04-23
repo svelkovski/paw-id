@@ -14,7 +14,7 @@
     class="relative max-w-[720px] mx-auto px-8 pt-32 pb-28 text-center max-[560px]:px-5 max-[560px]:pt-14 max-[560px]:pb-10"
   >
     <div
-      class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-full text-sm"
+      class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-full text-lg"
     >
       <span class="w-2 h-2 rounded-full bg-accent" aria-hidden="true"></span>
       Community-powered stray dog registry
@@ -50,39 +50,36 @@
 </section>
 
 @if (!loading && !error) {
-  <section class="max-w-[1040px] mx-auto px-8 py-10 max-[720px]:px-4"
+  <section #statsSection class="max-w-[1040px] mx-auto px-8 py-10 max-[720px]:px-4"
          aria-label="Registry statistics">
   <div class="grid grid-cols-3 gap-4 max-[640px]:grid-cols-1">
 
-    <!-- Registered -->
     <div class="flex items-center gap-4 p-5 rounded-lg
                 bg-bg-secondary border border-border-tertiary/50">
       <div class="w-11 h-11 rounded-full flex items-center justify-center shrink-0
                   bg-accent/15 text-accent text-xl">🐾</div>
       <div>
-        <div class="text-3xl font-medium text-text-primary tabular-nums leading-none">{{ totalDogs }}</div>
+        <div class="text-3xl font-medium text-text-primary tabular-nums leading-none">{{ animatedTotalDogs() }}</div>
         <div class="text-xs text-text-secondary uppercase tracking-wider mt-1.5">Registered</div>
       </div>
     </div>
 
-    <!-- Sightings -->
     <div class="flex items-center gap-4 p-5 rounded-lg
                 bg-bg-secondary border border-border-tertiary/50">
       <div class="w-11 h-11 rounded-full flex items-center justify-center shrink-0
                   bg-accent/15 text-accent text-xl">👁</div>
       <div>
-        <div class="text-3xl font-medium text-text-primary tabular-nums leading-none">{{ totalSightings }}</div>
+        <div class="text-3xl font-medium text-text-primary tabular-nums leading-none">{{ animatedTotalSightings() }}</div>
         <div class="text-xs text-text-secondary uppercase tracking-wider mt-1.5">Total sightings</div>
       </div>
     </div>
 
-    <!-- Need attention -->
     <div class="flex items-center gap-4 p-5 rounded-lg
                 bg-bg-secondary border border-border-tertiary/50">
       <div class="w-11 h-11 rounded-full flex items-center justify-center shrink-0
                   bg-badge-urgent-fg/15 text-badge-urgent-fg text-xl">⚠</div>
       <div>
-        <div class="text-3xl font-medium text-text-primary tabular-nums leading-none">{{ urgentCount }}</div>
+        <div class="text-3xl font-medium text-text-primary tabular-nums leading-none">{{ animatedUrgentCount() }}</div>
         <div class="text-xs text-text-secondary uppercase tracking-wider mt-1.5">Need attention</div>
       </div>
     </div>

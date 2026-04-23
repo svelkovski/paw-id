@@ -9,7 +9,6 @@ import { Subject, Observable } from 'rxjs';
   templateUrl: './webcam-modal.html'
 })
 export class WebcamModalComponent {
-
   @Output() photoTaken = new EventEmitter<File>();
   @Output() cancelled  = new EventEmitter<void>();
 
@@ -23,7 +22,6 @@ export class WebcamModalComponent {
   }
 
   onCapture(image: WebcamImage): void {
-    // Convert the base64 data URL -> File so the existing upload logic works unchanged
     const file = dataUrlToFile(image.imageAsDataUrl, 'webcam-photo.jpg');
     this.photoTaken.emit(file);
   }

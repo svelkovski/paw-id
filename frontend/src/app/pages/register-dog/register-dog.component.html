@@ -23,14 +23,6 @@
       </h2>
 
       <input
-        #cameraInput
-        type="file"
-        accept="image/*"
-        capture="environment"
-        class="hidden"
-        (change)="onFileSelected($event)"
-      />
-      <input
         #fileInput
         type="file"
         accept="image/*"
@@ -61,10 +53,8 @@
       </div>
 
       <div class="flex gap-2 flex-wrap">
-        <button type="button"
-                (click)="openWebcam()"
-                class="btn-ghost">
-          📷 Take photo
+        <button type="button" (click)="openWebcam()" class="btn-ghost text-sm">
+          Take photo
         </button>
         <button
           type="button"
@@ -91,7 +81,7 @@
           [(ngModel)]="name"
           maxlength="100"
           placeholder="e.g. Bruno — or leave blank if unknown"
-          class="field-input text-lg px-4 py-2"
+          class="field-input px-4 py-2"
         />
       </div>
 
@@ -124,7 +114,7 @@
           [(ngModel)]="color"
           maxlength="60"
           placeholder="e.g. Brown and white"
-          class="field-input text-lg"
+          class="field-input"
         />
         @if (errors["color"]) {
           <p class="field-error">{{ errors["color"] }}</p>
@@ -142,7 +132,7 @@
           maxlength="1000"
           rows="3"
           placeholder="Distinguishing features, behavior, markings…"
-          class="field-textarea text-lg"
+          class="field-textarea"
         ></textarea>
       </div>
     </div>
@@ -183,7 +173,7 @@
           [(ngModel)]="areaLabel"
           maxlength="200"
           placeholder="e.g. Near city park"
-          class="field-input text-lg"
+          class="field-input"
         />
       </div>
 
@@ -198,7 +188,11 @@
         </button>
 
         @if (latitude !== null && longitude !== null) {
-          <button type="button" (click)="clearLocation()" class="btn-ghost">
+          <button
+            type="button"
+            (click)="clearLocation()"
+            class="btn-ghost text-sm"
+          >
             Clear pin
           </button>
           <span class="text-xs text-text-muted tabular-nums">
@@ -233,9 +227,10 @@
     </div>
   </form>
   @if (showWebcam) {
-  <app-webcam-modal
-    (photoTaken)="onWebcamPhoto($event)"
-    (cancelled)="showWebcam = false">
-  </app-webcam-modal>
-}
+    <app-webcam-modal
+      (photoTaken)="onWebcamPhoto($event)"
+      (cancelled)="showWebcam = false"
+    >
+    </app-webcam-modal>
+  }
 </section>

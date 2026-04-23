@@ -46,5 +46,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/auth/register/register.component').then(m => m.RegisterComponent),
     title: 'PawID — Create account'
   },
+  {
+    path: 'map',
+    loadComponent: () => import('./pages/map/map').then(m => m.MapPageComponent),
+    title: 'PawID — Map'
+  },
   { path: '**', redirectTo: '' }
 ];

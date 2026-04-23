@@ -1,0 +1,51 @@
+<!--
+  The map takes the full viewport height minus the sticky header.
+  Your header is ~57px tall (py-3.5 + content + border). We use 100dvh to
+  handle mobile browser chrome correctly, minus the header height.
+-->
+<section class="relative w-full" style="height: calc(100dvh - 57px);">
+
+  @if (loading) {
+    <div class="absolute inset-0 z-[500] flex items-center justify-center
+                bg-bg-primary/80 backdrop-blur-sm">
+      <div class="text-sm text-text-secondary">Loading map…</div>
+    </div>
+  }
+
+  @if (error) {
+    <div class="absolute inset-0 z-[500] flex items-center justify-center p-8">
+      <div class="max-w-md text-center p-5 rounded-lg
+                  bg-bg-secondary border border-dashed
+                  text-badge-urgent-fg border-badge-urgent-fg text-sm">
+        {{ error }}
+      </div>
+    </div>
+  }
+
+  @if (!loading && !error && pins.length === 0) {
+    <div class="absolute top-4 left-1/2 -translate-x-1/2 z-[500]
+                px-4 py-2 rounded-md bg-bg-secondary border border-border-tertiary/50
+                text-xs text-text-secondary">
+      No dogs with known locations yet.
+    </div>
+  }
+
+  <!-- Legend (top-right) -->
+  @if (!loading && !error && pins.length > 0) {
+    <div class="absolute top-4 right-4 z-[500]
+                px-3 py-2 rounded-md bg-bg-primary/90 border border-border-tertiary/50
+                text-xs text-text-secondary flex gap-3">
+      <span class="flex items-center gap-1.5">
+        <span class="inline-block w-2 h-2 rounded-full bg-accent"></span>
+        Registered
+      </span>
+      <span class="flex items-center gap-1.5">
+        <span class="inline-block w-2 h-2 rounded-full bg-accent-soft-fg"></span>
+        Latest sighting
+      </span>
+    </div>
+  }
+
+  <!-- The Leaflet container. Must have explicit height → given by parent section. -->
+  <div #mapEl class="w-full h-full"></div>
+</section>

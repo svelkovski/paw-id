@@ -13,11 +13,13 @@ import { RouterLink } from "@angular/router";
 import { DogService } from "../../core/services/dog.service";
 import { DogSummary } from "../../core/models/dog.model";
 import { DogCardComponent } from "../../shared/dog-card/dog-card.component";
+import { DonateModalComponent } from '../../shared/donate-modal/donate-modal';
+
 
 @Component({
   selector: "app-home",
   standalone: true,
-  imports: [RouterLink, DogCardComponent],
+  imports: [RouterLink, DogCardComponent, DonateModalComponent],
   templateUrl: "./home.component.html",
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -28,6 +30,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   error: string | null = null;
 
   @ViewChild("howItWorks") howItWorksRef?: ElementRef<HTMLElement>;
+
+  // Controls the donate modal visibility.
+  readonly showDonateModal = signal(false);
 
   @ViewChild("statsSection")
   set statsSection(ref: ElementRef<HTMLElement> | undefined) {
@@ -194,5 +199,23 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.animationFrames.forEach((f) => cancelAnimationFrame(f));
     this.animationTimeouts = [];
     this.animationFrames = [];
+  }
+
+  // --- donate modal handlers ---
+
+  onDonateClick(): void {
+    this.showDonateModal.set(true);
+  }
+
+  onDonateClose(): void {
+    this.showDonateModal.set(false);
+  }
+
+  onDonateSubmit(amount: number): void {
+    // TODO: wire up to a real payment provider.
+    // For now, log the amount and close — replace with Stripe/PayPal redirect later.
+    console.log('Donation requested:', amount, 'EUR');
+    this.showDonateModal.set(false);
+    alert(`Thank you! Proceeding to payment for €${amount}. (Payment provider not yet configured.)`);
   }
 }

@@ -5,6 +5,6 @@ UPDATE dog SET photo_filename = 'seed-img4.jpg'           WHERE name = 'Rex';
 UPDATE dog SET photo_filename = 'seed-img5.jpg'          WHERE name = 'Mila';
 UPDATE dog SET photo_filename = 'seed-img6.jpg'  WHERE name IS NULL AND color = 'grey';
 UPDATE dog SET photo_filename = 'seed-img7.jpg'          WHERE name = 'Zuco';
-UPDATE dog SET photo_filename = 'seed-img8.jpg'          WHERE name = 'Cica';
+UPDATE dog SET photo_filename = 'seed-img8.jpg'          WHERE name = 'Zoe';
 UPDATE dog SET photo_filename = 'seed-img9.jpg' WHERE name IS NULL AND color = 'white';
 UPDATE dog SET photo_filename = 'seed-img10.jpg'          WHERE name = 'Tara';

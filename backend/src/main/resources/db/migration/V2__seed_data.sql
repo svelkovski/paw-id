@@ -6,6 +6,6 @@ INSERT INTO dog (name, size, color, description, photo_filename, initial_health_
     ('Mila',   'SMALL',  'beige',  'Small fluffy beige dog. Appears to be a former house pet.',             NULL, 'HEALTHY',         'Gazi Baba, Skopje',     42.0067, 21.4706),
     (NULL,     'MEDIUM', 'grey',   'Medium grey dog, shy and skittish. Runs away when approached.',         NULL, 'HEALTHY',         'Karpos, Skopje',        42.0047, 21.3930),
     ('Zuco',   'MEDIUM', 'yellow', 'Yellow stray, well-known in the neighbourhood. Very friendly.',         NULL, 'HEALTHY',         'Old Bazaar, Skopje',    41.9973, 21.4280),
-    ('Cica',   'SMALL',  'brown',  'Small injured female, visible wound on back leg. Needs urgent care.',   NULL, 'INJURED',         'Chair, Skopje',         42.0150, 21.4350),
+    ('Zoe',   'SMALL',  'brown',  'Small injured female, visible wound on back leg. Needs urgent care.',   NULL, 'INJURED',         'Chair, Skopje',         42.0150, 21.4350),
     (NULL,     'LARGE',  'white',  'Large white dog with black patches. Calm temperament.',                 NULL, 'HEALTHY',         'City Park, Skopje',     41.9938, 21.4072),
     ('Tara',   'MEDIUM', 'orange', 'Young female, possibly 1 year old. Very playful.',                      NULL, 'HEALTHY',         'Butel, Skopje',         42.0265, 21.4372);

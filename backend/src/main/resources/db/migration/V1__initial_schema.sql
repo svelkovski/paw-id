@@ -1,8 +1,3 @@
--- V1 - Initial schema
--- Matches the Dog, Sighting, and AppUser JPA entities exactly.
--- H2-compatible: uses BIGINT AUTO_INCREMENT (not BIGSERIAL which is Postgres-only).
-
--- Dog: the canonical profile registered once, then gets many sightings over time.
 CREATE TABLE dog (
     id                    BIGINT AUTO_INCREMENT PRIMARY KEY,
     name                  VARCHAR(100),
@@ -17,7 +12,6 @@ CREATE TABLE dog (
     created_at            TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- Users who can register and log in.
 CREATE TABLE app_user (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
     email         VARCHAR(100) NOT NULL UNIQUE,
@@ -28,7 +22,6 @@ CREATE TABLE app_user (
 
 CREATE INDEX idx_user_email ON app_user(email);
 
--- Sighting: a report that a registered dog was seen at a time/place.
 CREATE TABLE sighting (
     id             BIGINT AUTO_INCREMENT PRIMARY KEY,
     dog_id         BIGINT       NOT NULL,

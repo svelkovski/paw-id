@@ -1,46 +1,138 @@
-<nav class="sticky top-0 z-10 flex items-center justify-between px-8 py-3.5
-            bg-bg-primary border-b border-border-tertiary/50
-            max-md:px-4">
-  <a routerLink="/" aria-label="PawID home">
-    <app-logo></app-logo>
-  </a>
+<nav class="sticky top-0 z-50 bg-bg-primary border-b border-border-tertiary/50">
+  <div class="flex items-center justify-between px-10 py-3.5 max-md:px-4">
 
-  <div class="flex gap-6 max-md:hidden">
-    <a routerLink="/dogs"
-       routerLinkActive="text-accent"
-       class="text-sm text-text-secondary hover:text-text-primary transition-colors">
-      Browse profiles
+    <a routerLink="/" aria-label="PawID home" (click)="closeMenu()">
+      <app-logo></app-logo>
     </a>
-    <a routerLink="/dogs/register"
-       routerLinkActive="text-accent"
-       class="text-sm text-text-secondary hover:text-text-primary transition-colors">
-      Register a dog
-    </a>
-    <a href="#"
-       aria-disabled="true"
-       class="text-sm text-text-muted cursor-not-allowed">
-      Map
-    </a>
-    <a href="#how-it-works"
-          class="text-sm text-text-secondary hover:text-text-primary transition-colors">
 
-      How it works
-    </a>
-  </div>
+    <div class="flex gap-9 max-md:hidden">
+      <a routerLink="/dogs"
+        routerLinkActive="text-accent font-medium"
+        class="text-[15px] text-text-primary/70 hover:text-text-primary transition-colors">
+        Browse profiles
+      </a>
+      <a routerLink="/dogs/register"
+        routerLinkActive="text-accent font-medium"
+        class="text-[15px] text-text-primary/70 hover:text-text-primary transition-colors">
+        Register a dog
+      </a>
+      <a routerLink="/map"
+        routerLinkActive="text-accent font-medium"
+        class="text-[15px] text-text-primary/70 hover:text-text-primary transition-colors">
+        Map
+      </a>
+      <a routerLink="/about"
+        routerLinkActive="text-accent font-medium"
+        class="text-[15px] text-text-primary/70 hover:text-text-primary transition-colors">
+        How it works
+      </a>
+    </div>
 
-  <!-- Right side: auth buttons or logged-in user -->
-  <div class="flex items-center gap-2.5">
-    @if (auth.isLoggedIn()) {
-      <span class="text-sm text-text-secondary max-sm:hidden">
-        {{ auth.user()!.displayName }}
-      </span>
-      <button (click)="auth.logout()"
-              class="btn-ghost text-sm">
-        Sign out
+    <div class="flex items-center gap-2.5">
+      <div class="flex items-center gap-3 max-md:hidden">
+        @if (auth.isLoggedIn()) {
+          <div class="flex items-center gap-2.5 max-sm:hidden">
+            <span class="text-lg text-text-secondary">
+              {{ auth.user()!.displayName }}
+            </span>
+          </div>
+          <button (click)="auth.logout()" class="btn-ghost text-sm">
+            Sign out
+          </button>
+        } @else {
+          <a routerLink="/login" class="btn-ghost text-sm text-[15px]">Sign in</a>
+          <a routerLink="/register"
+             class="btn-primary text-[15px] font-medium shadow-sm hover:shadow-md">
+            Sign up
+          </a>
+        }
+      </div>
+
+      <button type="button"
+              (click)="toggleMenu()"
+              [attr.aria-expanded]="menuOpen()"
+              aria-label="Toggle menu"
+              aria-controls="mobile-menu"
+              class="md:hidden w-9 h-9 flex items-center justify-center
+                     rounded-md text-text-secondary
+                     hover:bg-bg-secondary hover:text-text-primary transition-colors">
+        @if (menuOpen()) {
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M6 18L18 6" />
+          </svg>
+        } @else {
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        }
       </button>
-    } @else {
-      <a routerLink="/login"  class="btn-ghost text-sm">Sign in</a>
-      <a routerLink="/register" class="btn-primary text-sm">Sign up</a>
-    }
+    </div>
   </div>
+
+  @if (menuOpen()) {
+    <div id="mobile-menu"
+         class="md:hidden border-t border-border-tertiary/50 bg-bg-primary
+                px-3 py-3 flex flex-col">
+      <a routerLink="/dogs"
+         routerLinkActive="text-accent bg-bg-secondary"
+         (click)="closeMenu()"
+         class="px-4 py-3 rounded-md text-base text-text-primary/80
+                hover:bg-bg-secondary transition-colors">
+        Browse profiles
+      </a>
+      <a routerLink="/dogs/register"
+         routerLinkActive="text-accent bg-bg-secondary"
+         (click)="closeMenu()"
+         class="px-4 py-3 rounded-md text-base text-text-primary/80
+                hover:bg-bg-secondary transition-colors">
+        Register a dog
+      </a>
+      <a routerLink="/map"
+         routerLinkActive="text-accent bg-bg-secondary"
+         (click)="closeMenu()"
+         class="px-4 py-3 rounded-md text-base text-text-primary/80
+                hover:bg-bg-secondary transition-colors">
+        Map
+      </a>
+      <a routerLink="/about"
+         routerLinkActive="text-accent bg-bg-secondary"
+         (click)="closeMenu()"
+         class="px-4 py-3 rounded-md text-base text-text-primary/80
+                hover:bg-bg-secondary transition-colors">
+        How it works
+      </a>
+
+      <div class="border-t border-border-tertiary/50 my-2"></div>
+
+      @if (auth.isLoggedIn()) {
+        <div class="px-4 py-2 flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-full bg-accent/15 text-accent text-xs font-medium
+                      flex items-center justify-center">
+            {{ auth.user()!.displayName[0].toUpperCase() }}
+          </div>
+          <span class="text-sm text-text-muted">
+            Signed in as <span class="text-text-primary">{{ auth.user()!.displayName }}</span>
+          </span>
+        </div>
+        <button type="button" (click)="logout()"
+                class="px-4 py-3 rounded-md text-base text-left text-text-primary/80
+                       hover:bg-bg-secondary transition-colors">
+          Sign out
+        </button>
+      } @else {
+        <a routerLink="/login" (click)="closeMenu()"
+           class="px-4 py-3 rounded-md text-base text-text-primary/80
+                  hover:bg-bg-secondary transition-colors">
+          Sign in
+        </a>
+        <a routerLink="/register" (click)="closeMenu()"
+           class="mt-2 px-4 py-3 rounded-md text-base font-medium text-center
+                  bg-accent text-white shadow-sm hover:bg-accent-dark hover:shadow-md transition-all">
+          Sign up
+        </a>
+      }
+    </div>
+  }
 </nav>

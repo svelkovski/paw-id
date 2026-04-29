@@ -19,11 +19,9 @@ public class AppUser {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    /** BCrypt-hashed password — never store plain text. */
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 
-    /** Display name shown in sightings. */
     @Column(nullable = false, length = 100)
     private String displayName;
 

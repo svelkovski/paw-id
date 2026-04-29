@@ -1,39 +1,46 @@
-<!-- ==================== TOP-LEVEL STATES ==================== -->
 @if (loading) {
   <section class="page">
-    <div class="py-14 px-5 text-center text-sm text-text-secondary
-                bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg">
+    <div
+      class="py-14 px-5 text-center text-base text-text-secondary bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg"
+    >
       Loading dog…
     </div>
   </section>
 } @else if (error) {
   <section class="page">
     <a routerLink="/dogs" class="btn-ghost mb-6">← Back to profiles</a>
-    <div class="py-14 px-5 text-center text-sm
-                bg-bg-secondary border border-dashed rounded-lg
-                text-badge-urgent-fg border-badge-urgent-fg">
+    <div
+      class="py-14 px-5 text-center text-base bg-bg-secondary border border-dashed rounded-lg text-badge-urgent-fg border-badge-urgent-fg"
+    >
       {{ error }}
     </div>
   </section>
 } @else if (dog) {
-
-  <!-- ==================== BACK LINK ==================== -->
   <div class="page !pb-4">
-    <a routerLink="/dogs"
-       class="inline-flex items-center text-sm text-text-secondary hover:text-text-primary transition-colors">
+    <a
+      routerLink="/dogs"
+      class="inline-flex items-center text-lg text-text-secondary hover:text-text-primary transition-colors"
+    >
       ← Back to profiles
     </a>
   </div>
 
-  <!-- ==================== HERO (photo or placeholder) ==================== -->
-  <section class="max-w-[1040px] mx-auto px-8 max-[720px]:px-4">
-    <div class="relative h-[320px] rounded-lg overflow-hidden
-                bg-bg-tertiary border border-border-tertiary/50
-                flex items-center justify-center
-                max-[560px]:h-[220px]">
-      @if (photoUrl; as photo) {
-        <img [src]="photo" [alt]="dog.displayName" class="w-full h-full object-cover">
-      } @else {
+<section class="max-w-[1040px] mx-auto px-8 max-[720px]:px-4">
+  <div class="relative h-[440px] rounded-lg overflow-hidden
+              bg-bg-tertiary border border-border-tertiary/50
+              max-[560px]:h-[300px]">
+    @if (photoUrl; as photo) {
+      <img [src]="photo" alt=""
+           aria-hidden="true"
+           class="absolute inset-0 w-full h-full object-cover
+                  scale-110 blur-2xl opacity-60">
+
+      <div class="absolute inset-0 bg-black/25"></div>
+
+      <img [src]="photo" [alt]="dog.displayName"
+           class="relative w-auto h-full mx-auto object-contain">
+    } @else {
+      <div class="w-full h-full flex items-center justify-center">
         <svg class="w-28 h-28 opacity-80" viewBox="0 0 48 48" fill="none" aria-hidden="true">
           <circle cx="24" cy="24" r="22" fill="#33332F"/>
           <ellipse cx="24" cy="28" rx="12" ry="10" fill="#55534D"/>
@@ -42,107 +49,136 @@
           <circle cx="28" cy="16" r="3" fill="#1C1C1A"/>
           <ellipse cx="24" cy="22" rx="4" ry="2.5" fill="#1C1C1A"/>
         </svg>
-      }
-      <span [class]="badgeClass" class="absolute top-4 left-4">{{ badgeLabel }}</span>
-    </div>
-  </section>
+      </div>
+    }
+  </div>
+</section>
 
-  <!-- ==================== HEADER + CTA ==================== -->
-  <section class="max-w-[1040px] mx-auto px-8 pt-6 max-[720px]:px-4">
+  <section class="max-w-[1040px] mx-auto px-8 pt-8 max-[720px]:px-4">
     <div class="flex items-end justify-between gap-4 flex-wrap">
       <div>
-        <h1 class="text-3xl font-medium text-text-primary mb-1">{{ dog.displayName }}</h1>
-        <p class="text-sm text-text-secondary">
+        <h1 class="text-4xl font-medium text-text-primary mb-2">
+          {{ dog.displayName }}
+        </h1>
+        <p class="text-xl text-text-secondary">
           {{ sizeLabel }} · {{ dog.color }}
-          @if (dog.initialAreaLabel) { · {{ dog.initialAreaLabel }} }
-          <span class="text-text-muted"> · Registered {{ timeAgo(dog.createdAt) }}</span>
+          @if (dog.initialAreaLabel) {
+            · {{ dog.initialAreaLabel }}
+          }
+          <span class="text-text-muted">
+            · Registered {{ timeAgo(dog.createdAt) }}</span
+          >
         </p>
       </div>
 
-      <a [routerLink]="['/dogs', dog.id, 'report']" class="btn-primary">
+      <a
+        [routerLink]="['/dogs', dog.id, 'report']"
+        class="inline-flex items-center gap-1.5 px-6 py-3 rounded-md text-lg font-medium text-white bg-accent hover:bg-accent-dark transition-colors"
+      >
         Report a sighting →
       </a>
     </div>
   </section>
 
-  <!-- ==================== ABOUT ==================== -->
   @if (dog.description) {
-    <section class="max-w-[1040px] mx-auto px-8 pt-8 max-[720px]:px-4">
-      <div class="text-[13px] font-medium text-text-secondary uppercase tracking-wider mb-3">
+    <section class="max-w-[1040px] mx-auto px-8 pt-10 max-[720px]:px-4">
+      <div
+        class="text-2xl font-medium text-text-secondary uppercase tracking-wider mb-4"
+      >
         About this dog
       </div>
-      <p class="text-sm text-text-primary leading-relaxed">{{ dog.description }}</p>
+      <p class="text-xl text-text-primary leading-relaxed">
+        {{ dog.description }}
+      </p>
     </section>
   }
 
-  <!-- ==================== MAP ==================== -->
   @if (hasMapData) {
-    <section class="max-w-[1040px] mx-auto px-8 pt-10 max-[720px]:px-4">
-      <div class="flex items-baseline justify-between mb-3">
-        <div class="text-[13px] font-medium text-text-secondary uppercase tracking-wider">
+    <section class="max-w-[1040px] mx-auto px-8 pt-12 max-[720px]:px-4">
+      <div class="flex items-baseline justify-between mb-4 flex-wrap gap-2">
+        <div
+          class="text-2xl font-medium text-text-secondary uppercase tracking-wider"
+        >
           Location trail
         </div>
-        <div class="text-xs text-text-muted">
-          <span class="inline-block w-2 h-2 rounded-full bg-accent align-middle mr-1"></span>
+        <div class="text-xl text-text-muted">
+          <span
+            class="inline-block w-2.5 h-2.5 rounded-full bg-accent align-middle mr-1.5"
+          ></span>
           Registered
-          <span class="inline-block w-2 h-2 rounded-full bg-accent-soft-fg align-middle ml-3 mr-1"></span>
+          <span
+            class="inline-block w-2.5 h-2.5 rounded-full bg-[#f5b041] align-middle ml-4 mr-1.5"
+          ></span>
           Sighting
         </div>
       </div>
 
-      <!-- #mapEl is the handle for the ViewChild setter in the TS file.
-           Leaflet needs an explicit height; h-80 = 320px. -->
-      <div #mapEl
-           class="h-80 rounded-lg overflow-hidden border border-border-tertiary/50
-                  max-[560px]:h-64"></div>
+      <div
+        #mapEl
+        class="h-[520px] rounded-lg overflow-hidden border border-border-tertiary/50 max-[560px]:h-[360px]"
+      ></div>
     </section>
   }
 
-  <!-- ==================== SIGHTINGS ==================== -->
-  <section class="page pt-10">
-    <div class="flex items-baseline justify-between mb-4">
-      <h2 class="text-[13px] font-medium text-text-secondary uppercase tracking-wider">
+  <section class="page pt-12">
+    <div class="flex items-baseline justify-between mb-5">
+      <h2
+        class="text-2xl font-medium text-text-secondary uppercase tracking-wider"
+      >
         Sightings ({{ dog.sightings.length }})
       </h2>
     </div>
 
     @if (dog.sightings.length === 0) {
-      <div class="py-10 px-5 text-center text-sm text-text-secondary
-                  bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg">
+      <div
+        class="py-12 px-5 text-center text-xl text-text-secondary bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg"
+      >
         No sightings reported yet.
-        <a [routerLink]="['/dogs', dog.id, 'report']"
-           class="text-accent ml-1 hover:text-accent-dark">
+        <a
+          [routerLink]="['/dogs', dog.id, 'report']"
+          class="text-accent ml-1 hover:text-accent-dark"
+        >
           Be the first to report one →
         </a>
       </div>
     } @else {
-      <ul class="flex flex-col gap-3">
+      <ul class="flex flex-col gap-4">
         @for (s of dog.sightings; track s.id) {
-          <li class="flex gap-4 p-4 bg-bg-secondary border border-border-tertiary/50 rounded-lg
-                     max-[560px]:flex-col max-[560px]:gap-3">
-
-            <!-- Optional sighting photo, small square -->
+          <li
+            class="flex gap-5 p-5 bg-bg-secondary border border-border-tertiary/50 rounded-lg max-[560px]:flex-col max-[560px]:gap-3"
+          >
             @if (sightingPhotoUrl(s); as photo) {
-              <img [src]="photo" alt="Sighting photo"
-                   class="w-24 h-24 rounded-md object-cover shrink-0
-                          max-[560px]:w-full max-[560px]:h-40">
+              <img
+                [src]="photo"
+                alt="Sighting photo"
+                class="w-28 h-28 rounded-md object-cover shrink-0 max-[560px]:w-full max-[560px]:h-48"
+              />
             }
 
-            <!-- Content -->
             <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="w-2 h-2 rounded-full" [class]="healthDotClass(s.healthStatus)"></span>
-                <span class="text-sm font-medium" [class]="healthTextClass(s.healthStatus)">
+              <div class="flex items-center gap-2 mb-2">
+                <span
+                  class="w-2.5 h-2.5 rounded-full"
+                  [class]="healthDotClass(s.healthStatus)"
+                ></span>
+                <span
+                  class="text-xl font-medium"
+                  [class]="healthTextClass(s.healthStatus)"
+                >
                   {{ healthLabel(s.healthStatus) }}
                 </span>
               </div>
 
               @if (s.note) {
-                <p class="text-sm text-text-primary mb-2">{{ s.note }}</p>
+                <p class="text-lg text-text-primary mb-2 leading-relaxed">
+                  {{ s.note }}
+                </p>
               }
 
-              <div class="text-xs text-text-muted">
-                @if (s.areaLabel) { {{ s.areaLabel }} · }
+              <div class="text-lg text-text-muted">
+                @if (s.areaLabel) {
+                  {{ s.areaLabel }} ·
+                }
                 {{ timeAgo(s.reportedAt) }}
                 <span class="text-text-muted/60 mx-1">·</span>
                 <span class="text-text-secondary">{{ s.reporterName }}</span>

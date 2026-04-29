@@ -18,7 +18,6 @@ public class Dog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Optional — many strays have no known name. */
     @Column(length = 100)
     private String name;
 
@@ -26,14 +25,12 @@ public class Dog {
     @Column(nullable = false, length = 20)
     private DogSize size;
 
-    /** Free text (e.g. "brown and white"). Enum would be too restrictive. */
     @Column(nullable = false, length = 60)
     private String color;
 
     @Column(length = 1000)
     private String description;
 
-    /** Filename inside the uploads directory. Null means no photo was provided. */
     @Column(name = "photo_filename", length = 255)
     private String photoFilename;
 
@@ -53,10 +50,6 @@ public class Dog {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    /**
-     * We fetch sightings explicitly when needed (the detail page),
-     * so default lazy loading is fine. We keep the list here mostly for cascade convenience.
-     */
     @OneToMany(mappedBy = "dog", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Sighting> sightings = new ArrayList<>();
 

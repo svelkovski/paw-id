@@ -1,9 +1,5 @@
 import { Routes } from '@angular/router';
 
-/**
- * Every page is lazy-loaded. This keeps the initial bundle small and gives you
- * natural code-splitting — students can navigate the codebase page-by-page.
- */
 export const routes: Routes = [
   {
     path: '',
@@ -42,13 +38,18 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/auth/login.component').then(m => m.LoginComponent),
+    loadComponent: () => import('./pages/auth/login/login.component').then(m => m.LoginComponent),
     title: 'PawID — Sign in'
   },
   {
     path: 'register',
-    loadComponent: () => import('./pages/auth/register.component').then(m => m.RegisterComponent),
+    loadComponent: () => import('./pages/auth/register/register.component').then(m => m.RegisterComponent),
     title: 'PawID — Create account'
+  },
+  {
+    path: 'map',
+    loadComponent: () => import('./pages/map/map').then(m => m.MapPageComponent),
+    title: 'PawID — Map'
   },
   { path: '**', redirectTo: '' }
 ];

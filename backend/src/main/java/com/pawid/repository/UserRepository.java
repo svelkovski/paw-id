@@ -13,10 +13,6 @@ public interface UserRepository extends JpaRepository<AppUser, Long> {
 
     boolean existsByEmail(String email);
 
-    /**
-     * Returns users ordered by the number of sightings they have reported (desc).
-     * Used for the Top Contributor feature.
-     */
     @Query("""
         SELECT u FROM AppUser u
         LEFT JOIN Sighting s ON s.reporter = u

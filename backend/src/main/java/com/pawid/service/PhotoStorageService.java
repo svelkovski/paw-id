@@ -13,19 +13,11 @@ import java.nio.file.StandardCopyOption;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Saves uploaded photos to a local folder and returns a filename that can be stored in the DB.
- *
- * Design notes:
- *   - We don't trust the client-supplied filename (it could contain path separators).
- *   - We generate our own UUID-based name and keep only the extension from the upload.
- *   - Only common image extensions are accepted. Everything else is rejected.
- */
 @Service
 public class PhotoStorageService {
 
     private static final Set<String> ALLOWED_EXTENSIONS = Set.of("jpg", "jpeg", "png", "webp", "heic");
-    private static final long MAX_FILE_SIZE_BYTES = 10L * 1024 * 1024; // 10 MB
+    private static final long MAX_FILE_SIZE_BYTES = 10L * 1024 * 1024;
 
     private final Path uploadsRoot;
 
@@ -38,10 +30,6 @@ public class PhotoStorageService {
         Files.createDirectories(uploadsRoot);
     }
 
-    /**
-     * Save the given file and return the generated filename (no leading slash, no path).
-     * Returns null if the file is null or empty — callers should treat "no photo" as valid.
-     */
     public String store(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return null;
@@ -58,7 +46,6 @@ public class PhotoStorageService {
         String filename = UUID.randomUUID() + "." + extension;
         Path target = uploadsRoot.resolve(filename).normalize();
 
-        // Guard against path traversal — the resolved path must still live under uploadsRoot.
         if (!target.startsWith(uploadsRoot)) {
             throw new IllegalArgumentException("Invalid photo path");
         }

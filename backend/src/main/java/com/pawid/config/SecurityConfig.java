@@ -30,16 +30,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Public: auth endpoints, reading dogs and sightings, static files, H2 console
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/dogs/**").permitAll()
+                        .requestMatchers("/api/dogs/**").permitAll()
                         .requestMatchers("/api/stats/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        // Everything else requires a valid JWT
                         .anyRequest().authenticated()
                 )
-                // Allow H2 console to render in frames
                 .headers(h -> h.frameOptions(fo -> fo.sameOrigin()))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 

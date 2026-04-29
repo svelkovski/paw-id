@@ -5,8 +5,6 @@ spring:
   application:
     name: pawid-backend
 
-  # H2 in file mode. The DB file lives at ./data/pawid.mv.db next to where you run the app.
-  # To switch to Postgres later, replace this block with the postgresql url + driver and keep everything else.
   datasource:
     url: jdbc:h2:file:./data/pawid;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1
     username: sa
@@ -15,7 +13,6 @@ spring:
 
   jpa:
     hibernate:
-      # Flyway owns the schema. Hibernate must NEVER touch it — `none` is critical.
       ddl-auto: none
     properties:
       hibernate:
@@ -27,29 +24,21 @@ spring:
     enabled: true
     locations: classpath:db/migration
     baseline-on-migrate: true
-    # Cleans up any failed/mismatched migration history from previous runs.
-    # Safe to leave on in development; remove before first production deploy.
     repair-on-migrate: true
 
-  # Allow larger multipart uploads (photos from phones can be big).
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 12MB
 
-  # H2 console for debugging — open http://localhost:8080/h2-console
-  # JDBC URL in the console: jdbc:h2:file:./data/pawid
   h2:
     console:
       enabled: true
       path: /h2-console
 
-# Where uploaded photos are stored on disk (relative to working dir).
-# The folder is created at startup if missing. See PhotoStorageService.
 pawid:
   uploads-dir: ./uploads
   cors-allowed-origins: http://localhost:4200
   jwt:
-    # Change this to a strong random string in production (min 32 chars)
-    secret: "pawid-jwt-secret-key-change-in-production-min-256-bits"
-    expiration-ms: 86400000   # 24 hours
+    secret: ${JWT_SECRET}
+    expiration-ms: 86400000

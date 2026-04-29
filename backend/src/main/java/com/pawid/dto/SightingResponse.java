@@ -14,7 +14,7 @@ public record SightingResponse(
         Double longitude,
         String photoUrl,
         Instant reportedAt,
-        String reporterName   // display name of the user who filed this sighting, or "Anonymous"
+        String reporterName
 ) {
     public static SightingResponse from(Sighting s, String photoUrl) {
         String reporter = (s.getReporter() != null)

@@ -1,198 +1,249 @@
 <section class="page">
+  <div class="max-w-[720px] mx-auto">
+    @if (loadingDog) {
+      <div
+        class="py-14 px-5 text-center text-base text-text-secondary bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg"
+      >
+        Loading dog…
+      </div>
+    } @else if (dogError) {
+      <a
+        routerLink="/dogs"
+        class="btn-ghost text-lg px-5 py-2.5 mb-6 inline-flex"
+        >← Back to profiles</a
+      >
+      <div
+        class="py-14 px-5 text-center text-base bg-bg-secondary border border-dashed rounded-lg text-badge-urgent-fg border-badge-urgent-fg"
+      >
+        {{ dogError }}
+      </div>
+    } @else if (dog) {
+      <header class="mb-8">
+        <a
+          [routerLink]="['/dogs', id]"
+          class="inline-flex items-center text-xl text-text-secondary hover:text-text-primary transition-colors mb-3"
+        >
+          ← Back to profile
+        </a>
+        <h1 class="text-4xl font-medium text-text-primary mb-2">
+          Report a sighting
+        </h1>
+        <p class="text-2xl text-text-secondary">
+          Add your observation to this dog's trail.
+        </p>
+      </header>
 
-  <!-- ==================== TOP-LEVEL STATES ==================== -->
-  @if (loadingDog) {
-    <div class="py-14 px-5 text-center text-sm text-text-secondary
-                bg-bg-secondary border border-dashed border-border-tertiary/50 rounded-lg">
-      Loading dog…
-    </div>
-  } @else if (dogError) {
-    <a routerLink="/dogs" class="btn-ghost mb-6">← Back to profiles</a>
-    <div class="py-14 px-5 text-center text-sm
-                bg-bg-secondary border border-dashed rounded-lg
-                text-badge-urgent-fg border-badge-urgent-fg">
-      {{ dogError }}
-    </div>
-  } @else if (dog) {
-
-    <!-- ==================== HEADER ==================== -->
-    <header class="mb-6">
-      <a [routerLink]="['/dogs', id]"
-         class="inline-flex items-center text-sm text-text-secondary hover:text-text-primary transition-colors mb-3">
-        ← Back to profile
-      </a>
-      <h1 class="text-3xl font-medium text-text-primary mb-1">Report a sighting</h1>
-      <p class="text-sm text-text-secondary">
-        Add your observation to this dog's trail. Only the current health status is required.
-      </p>
-    </header>
-
-    <form (submit)="onSubmit(); $event.preventDefault()"
-          class="max-w-[640px] flex flex-col gap-5">
-
-      <!-- ==================== CONTEXT STRIP ==================== -->
-      <!--
-        A compact row showing who the sighting is being reported on.
-        Lighter than a full .form-card so it reads as "info", not "input".
-      -->
-      <div class="bg-bg-secondary border border-border-tertiary/50 rounded-lg p-4
-                  flex items-center gap-4">
-        @if (dogPhotoUrl; as photo) {
-          <img [src]="photo" [alt]="dog.displayName"
-               class="w-14 h-14 rounded-md object-cover shrink-0">
-        } @else {
-          <div class="w-14 h-14 rounded-md bg-bg-tertiary shrink-0"></div>
-        }
-        <div class="min-w-0">
-          <div class="text-[11px] uppercase tracking-wider text-text-muted">Reporting a sighting of</div>
-          <div class="text-base font-medium text-text-primary truncate">{{ dog.displayName }}</div>
-          <div class="text-xs text-text-secondary">
-            @if (priorSightingCount === 0) {
-              No prior sightings yet.
-            } @else {
-              {{ priorSightingCount }}
-              {{ priorSightingCount === 1 ? 'prior sighting' : 'prior sightings' }} recorded.
-            }
+      <form
+        (submit)="onSubmit(); $event.preventDefault()"
+        class="flex flex-col gap-5"
+      >
+        <div
+          class="bg-bg-secondary border border-border-tertiary/50 rounded-lg p-5 flex items-center gap-4"
+        >
+          @if (dogPhotoUrl; as photo) {
+            <img
+              [src]="photo"
+              [alt]="dog.displayName"
+              class="w-20 h-20 rounded-md object-cover shrink-0"
+            />
+          } @else {
+            <div class="w-16 h-16 rounded-md bg-bg-tertiary shrink-0"></div>
+          }
+          <div class="min-w-0">
+            <div class="text-lg uppercase tracking-wider text-text-muted">
+              Reporting a sighting of
+            </div>
+            <div class="text-2xl font-medium text-text-primary truncate">
+              {{ dog.displayName }}
+            </div>
+            <div class="text-text-secondary">
+              @if (priorSightingCount === 0) {
+                No prior sightings yet.
+              } @else {
+                {{ priorSightingCount }}
+                {{
+                  priorSightingCount === 1
+                    ? "prior sighting"
+                    : "prior sightings"
+                }}
+                recorded.
+              }
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- ==================== PHOTO ==================== -->
-      <div class="form-card">
-        <h2 class="form-card__title">Photo <span class="field-optional">(optional)</span></h2>
+        <div class="form-card">
+          <h2 class="form-card__title text-xl">
+            Photo <span class="field-optional">(optional)</span>
+          </h2>
 
-        <input #cameraInput type="file" accept="image/*" capture="environment"
-               class="hidden" (change)="onFileSelected($event)">
-        <input #fileInput type="file" accept="image/*"
-               class="hidden" (change)="onFileSelected($event)">
+          <input
+            #fileInput
+            type="file"
+            accept="image/*"
+            class="hidden"
+            (change)="onFileSelected($event)"
+          />
 
-        <div class="relative h-48 rounded-md overflow-hidden
-                    bg-bg-tertiary border border-border-tertiary/50
-                    flex items-center justify-center mb-3">
-          @if (photoPreviewUrl) {
-            <img [src]="photoPreviewUrl" alt="Selected photo"
-                 class="w-full h-full object-cover">
-            <button type="button"
-                    (click)="clearPhoto()"
-                    aria-label="Remove photo"
-                    class="absolute top-2 right-2 w-7 h-7 rounded-full
-                           bg-bg-primary/80 text-text-primary text-base leading-none
-                           border border-border-tertiary/50
-                           hover:bg-bg-primary transition-colors">×</button>
-          } @else {
-            <span class="text-xs text-text-muted">No photo selected yet</span>
-          }
-        </div>
-
-        <div class="flex gap-2 flex-wrap">
-          <button type="button" (click)="cameraInput.click()" class="btn-ghost">
-            📷 Take photo
-          </button>
-          <button type="button" (click)="fileInput.click()" class="btn-ghost">
-            Upload file
-          </button>
-        </div>
-      </div>
-
-      <!-- ==================== OBSERVATION (health + note) ==================== -->
-      <div class="form-card">
-        <h2 class="form-card__title">What you observed</h2>
-
-        <div class="mb-4">
-          <label class="field-label">Current health</label>
-          <div class="flex gap-2 flex-wrap">
-            @for (opt of healthOptions; track opt.value) {
-              <button type="button"
-                      (click)="healthStatus = opt.value"
-                      class="chip"
-                      [class.chip--active]="healthStatus === opt.value"
-                      [class.chip--inactive]="healthStatus !== opt.value">
-                {{ opt.label }}
+          <div
+            class="relative h-80 rounded-md overflow-hidden bg-bg-tertiary border border-border-tertiary/50 flex items-center justify-center mb-3"
+          >
+            @if (photoPreviewUrl) {
+              <img
+                [src]="photoPreviewUrl"
+                alt="Selected photo"
+                class="w-full h-full object-contain"
+              />
+              <button
+                type="button"
+                (click)="clearPhoto()"
+                aria-label="Remove photo"
+                class="absolute top-2 right-2 w-8 h-8 rounded-full bg-bg-primary/80 text-text-primary text-lg leading-none border border-border-tertiary/50 hover:bg-bg-primary transition-colors"
+              >
+                ×
               </button>
+            } @else {
+              <span class="text-sm text-text-muted">No photo selected yet</span>
             }
           </div>
-          @if (errors['healthStatus']) {
-            <p class="field-error">{{ errors['healthStatus'] }}</p>
-          }
-        </div>
 
-        <div>
-          <label for="note" class="field-label">
-            Note <span class="field-optional">(optional)</span>
-          </label>
-          <textarea id="note"
-                    name="note"
-                    [(ngModel)]="note"
-                    maxlength="1000"
-                    rows="3"
-                    placeholder="What was the dog doing? Any changes you noticed?"
-                    class="field-textarea"></textarea>
-        </div>
-      </div>
-
-      <!-- ==================== LOCATION ==================== -->
-      <div class="form-card">
-        <h2 class="form-card__title">
-          Where did you see the dog? <span class="field-optional">(optional)</span>
-        </h2>
-
-        <div class="mb-4">
-          <label for="areaLabel" class="field-label">Area label</label>
-          <input type="text"
-                 id="areaLabel"
-                 name="areaLabel"
-                 [(ngModel)]="areaLabel"
-                 maxlength="200"
-                 placeholder="e.g. Near city park"
-                 class="field-input">
-        </div>
-
-        <div class="flex items-center gap-2 mb-3 flex-wrap">
-          <button type="button"
-                  (click)="useMyLocation()"
-                  [disabled]="locationRequesting"
-                  class="btn-ghost disabled:opacity-60 disabled:cursor-not-allowed">
-            📍 {{ locationRequesting ? 'Getting location…' : 'Use my location' }}
-          </button>
-
-          @if (latitude !== null && longitude !== null) {
-            <button type="button" (click)="clearLocation()" class="btn-ghost">
-              Clear pin
+          <div class="flex gap-2 flex-wrap">
+            <button
+              type="button"
+              (click)="openWebcam()"
+              class="btn-ghost text-[15px] px-5 py-2.5"
+            >
+              Take photo
             </button>
-            <span class="text-xs text-text-muted tabular-nums">
-              {{ latitude.toFixed(5) }}, {{ longitude.toFixed(5) }}
-            </span>
-          } @else {
-            <span class="text-xs text-text-muted">
-              …or click on the map to drop a pin
-            </span>
-          }
+            <button
+              type="button"
+              (click)="fileInput.click()"
+              class="btn-ghost text-[15px] px-5 py-2.5"
+            >
+              Upload file
+            </button>
+          </div>
         </div>
 
-        <!--
-          Map starts centered on the dog's most recent known location
-          so the reporter begins near where the dog was last seen —
-          a small UX win that makes sense for follow-up sightings.
-        -->
-        <div #mapEl
-             class="h-64 rounded-md overflow-hidden border border-border-tertiary/50
-                    max-[560px]:h-56"></div>
-      </div>
+        <div class="form-card">
+          <h2 class="form-card__title text-xl">What you observed</h2>
 
-      <!-- ==================== ERROR BANNER ==================== -->
-      @if (error) {
-        <div class="error-banner">{{ error }}</div>
+          <div class="mb-5">
+            <label class="field-label text-lg">Current health</label>
+            <div class="flex gap-2 flex-wrap">
+              @for (opt of healthOptions; track opt.value) {
+                <button
+                  type="button"
+                  (click)="healthStatus = opt.value"
+                  class="chip text-lg px-4 py-1.5"
+                  [class.chip--active]="healthStatus === opt.value"
+                  [class.chip--inactive]="healthStatus !== opt.value"
+                >
+                  {{ opt.label }}
+                </button>
+              }
+            </div>
+            @if (errors["healthStatus"]) {
+              <p class="field-error">{{ errors["healthStatus"] }}</p>
+            }
+          </div>
+
+          <div>
+            <label for="note" class="field-label text-lg">
+              Note <span class="field-optional">(optional)</span>
+            </label>
+            <textarea
+              id="note"
+              name="note"
+              [(ngModel)]="note"
+              maxlength="1000"
+              rows="3"
+              placeholder="What was the dog doing? Any changes you noticed?"
+              class="field-textarea text-lg"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h2 class="form-card__title text-xl">
+            Where did you see the dog?
+            <span class="field-optional">(optional)</span>
+          </h2>
+
+          <div class="mb-4">
+            <label for="areaLabel" class="field-label text-lg"
+              >Area label</label
+            >
+            <input
+              type="text"
+              id="areaLabel"
+              name="areaLabel"
+              [(ngModel)]="areaLabel"
+              maxlength="200"
+              placeholder="e.g. Near city park"
+              class="field-input text-lg"
+            />
+          </div>
+
+          <div class="flex items-center gap-2 mb-3 flex-wrap">
+            <button
+              type="button"
+              (click)="useMyLocation()"
+              [disabled]="locationRequesting"
+              class="btn-ghost text-lg px-5 py-2.5 disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {{ locationRequesting ? "Getting location…" : "Use my location" }}
+            </button>
+
+            @if (latitude !== null && longitude !== null) {
+              <button
+                type="button"
+                (click)="clearLocation()"
+                class="btn-ghost text-lg px-5 py-2.5"
+              >
+                Clear pin
+              </button>
+            } @else {
+              <span class="text-lg text-text-muted">
+                …or click on the map to drop a pin
+              </span>
+            }
+          </div>
+
+          <div
+            #mapEl
+            class="h-80 rounded-md overflow-hidden border border-border-tertiary/50 max-[560px]:h-64"
+          ></div>
+        </div>
+
+        @if (error) {
+          <div class="error-banner">{{ error }}</div>
+        }
+
+        <div class="flex justify-end gap-3 flex-wrap">
+          <a
+            [routerLink]="['/dogs', id]"
+            class="btn-ghost text-[15px] px-5 py-2.5"
+          >
+            Cancel
+          </a>
+          <button
+            type="submit"
+            [disabled]="submitting"
+            class="btn-primary text-[15px] px-6 py-2.5 disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {{ submitting ? "Reporting…" : "Report sighting" }}
+          </button>
+        </div>
+      </form>
+
+      @if (showWebcam) {
+        <app-webcam-modal
+          (photoTaken)="onWebcamPhoto($event)"
+          (cancelled)="showWebcam = false"
+        >
+        </app-webcam-modal>
       }
-
-      <!-- ==================== SUBMIT ==================== -->
-      <div class="flex justify-end gap-3 flex-wrap">
-        <a [routerLink]="['/dogs', id]" class="btn-ghost">Cancel</a>
-        <button type="submit"
-                [disabled]="submitting"
-                class="btn-primary disabled:opacity-60 disabled:cursor-not-allowed">
-          {{ submitting ? 'Reporting…' : 'Report sighting' }}
-        </button>
-      </div>
-    </form>
-  }
+    }
+  </div>
 </section>

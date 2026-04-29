@@ -1,71 +1,62 @@
-/* ------------------------------------------------------------------
- * PawID global styles — Tailwind CSS v4 (CSS-first config)
- *
- * v4 moves design tokens into the CSS itself via @theme. Tailwind reads
- * them at build time and auto-generates matching utilities, so
- * `bg-accent`, `text-badge-new-fg`, etc. all work in templates with no
- * separate JS config file.
- * ----------------------------------------------------------------- */
-
 @import "tailwindcss";
 
 @theme {
-  /* Brand */
-  --color-accent:          #1d9e75;
-  --color-accent-dark:     #17855f;
-  --color-accent-soft:     #112922;
-  --color-accent-soft-fg:  #5fd3a4;
+  --color-accent: #1d9e75;
+  --color-accent-dark: #17855f;
+  --color-accent-soft: #112922;
+  --color-accent-soft-fg: #5fd3a4;
 
-  /* Neutrals (warm near-black palette) */
-  --color-bg-primary:      #141413;
-  --color-bg-secondary:    #1c1c1a;
-  --color-bg-tertiary:     #242421;
-  --color-text-primary:    #f0eee8;
-  --color-text-secondary:  #a5a39d;
-  --color-text-muted:      #6b6a65;
+  --color-bg-primary: #141413;
+  --color-bg-secondary: #1c1c1a;
+  --color-bg-tertiary: #242421;
+  --color-text-primary: #f0eee8;
+  --color-text-secondary: #a5a39d;
+  --color-text-muted: #6b6a65;
 
-  /* Borders */
-  --color-border-primary:   #3a3936;
+  --color-border-primary: #3a3936;
   --color-border-secondary: #2e2d2a;
-  --color-border-tertiary:  #2a2a27;
+  --color-border-tertiary: #2a2a27;
 
-  /* Status badge palette (dark-tinted bg + readable foreground) */
-  --color-badge-new-bg:     #112922;
-  --color-badge-new-fg:     #5fd3a4;
-  --color-badge-active-bg:  #0e1f33;
-  --color-badge-active-fg:  #6faddd;
-  --color-badge-urgent-bg:  #2f1712;
-  --color-badge-urgent-fg:  #e4a084;
+  --color-badge-new-bg: #112922;
+  --color-badge-new-fg: #5fd3a4;
+  --color-badge-active-bg: #0e1f33;
+  --color-badge-active-fg: #6faddd;
+  --color-badge-urgent-bg: #2f1712;
+  --color-badge-urgent-fg: #e4a084;
 
-  /* Warning (amber) — used for the "NEEDS_ATTENTION" health status */
   --color-warning-bg: #2b2412;
   --color-warning-fg: #e4c084;
+  /* --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif; */
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
-/* --------- base element styling ---------
- *
- * In v4, `--spacing` is a single base unit (default 0.25rem / 4px) and every
- * spacing utility scales from it. That means `p-4.5`, `pt-18`, etc. all Just Work
- * without needing to extend a scale — we don't need any spacing config at all.
- * ---------------------------------------- */
-
 @layer base {
-
   html {
     color-scheme: dark;
   }
 
   html,
   body {
-    height: 100%;
+    min-height: 100%;
     background: var(--color-bg-primary);
     color: var(--color-text-primary);
-    font-family:
+    /* font-family:
       -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-      Arial, sans-serif;
+      Arial, sans-serif; */
+    font-family: var(--font-sans);
     font-size: 14px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+  }
+
+  app-root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+
+  router-outlet + * {
+    display: block;
   }
 
   ::placeholder {
@@ -73,85 +64,65 @@
   }
 }
 
-/* --------- reusable component classes ---------
- *
- * Small set of named classes for things that repeat across many components
- * (buttons, badges, form fields). Everything else uses inline Tailwind
- * utilities in the templates.
- *
- * @apply composes utilities into a named class — compiles down to the same
- * atomic CSS, so there's no performance hit.
- * ---------------------------------------------- */
-
 @layer components {
-
-  /* Buttons */
-
   .btn-primary {
-    @apply inline-flex items-center gap-1.5 px-4.5 py-2 rounded-md
-           text-xs font-medium text-white
+    @apply inline-flex items-center gap-1.5 px-5 py-2.5 rounded-md
+           text-[15px] font-medium text-white
            bg-accent hover:bg-accent-dark
            transition-colors duration-150;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center gap-1.5 px-4.5 py-2 rounded-md
-           text-xs text-text-primary
+    @apply inline-flex items-center gap-1.5 px-5 py-2.5 rounded-md
+           text-[15px] text-text-primary
            bg-transparent border border-border-secondary/50
            hover:bg-bg-secondary hover:border-border-primary
            transition-colors duration-150;
   }
 
-  /* Badges */
-
   .badge {
     @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium;
   }
 
-  .badge--new    { @apply bg-badge-new-bg    text-badge-new-fg; }
-  .badge--active { @apply bg-badge-active-bg text-badge-active-fg; }
-  .badge--urgent { @apply bg-badge-urgent-bg text-badge-urgent-fg; }
-
-  /* Form controls */
+  .badge--new {
+    @apply bg-badge-new-bg    text-badge-new-fg;
+  }
+  .badge--active {
+    @apply bg-badge-active-bg text-badge-active-fg;
+  }
+  .badge--urgent {
+    @apply bg-badge-urgent-bg text-badge-urgent-fg;
+  }
 
   .field-label {
-    @apply block text-xs font-medium uppercase tracking-wide
+    @apply block text-sm font-medium uppercase tracking-wide
            text-text-secondary mb-1.5;
   }
 
   .field-input {
-    @apply w-full px-3 py-2.5
-           text-sm text-text-primary
+    @apply w-full px-3.5 py-2.5
+           text-[15px] text-text-primary
            bg-bg-secondary border border-border-primary/50 rounded-md
            focus:outline-none focus:border-accent
            transition-colors duration-150;
   }
 
-  /* Alias used by auth forms */
   .input {
-    @apply w-full px-3 py-2.5
-           text-sm text-text-primary
+    @apply w-full px-3.5 py-2.5
+           text-[15px] text-text-primary
            bg-bg-secondary border border-border-primary/50 rounded-md
            focus:outline-none focus:border-accent
            transition-colors duration-150;
   }
 
-  /* NOTE: In Tailwind v4, @apply can only reference utility classes (anything
-     from @theme or built into Tailwind), NOT other component classes you define.
-     So we can't write `@apply field-input min-h-[90px] resize-y` here — Tailwind
-     would report "unknown utility class field-input". Inlining the shared rules
-     is the simplest fix; if duplication ever bites, compose at the template
-     level instead: <textarea class="field-input min-h-[90px] resize-y"> */
   .field-textarea {
-    @apply w-full px-3 py-2.5
-           text-sm text-text-primary
+    @apply w-full px-3.5 py-2.5
+           text-[15px] text-text-primary
            bg-bg-secondary border border-border-primary/50 rounded-md
            focus:outline-none focus:border-accent
            transition-colors duration-150
-           min-h-[90px] resize-y;
+           min-h-[100px] resize-y;
   }
-
-  /* Page container — shared max-width + horizontal padding + top/bottom rhythm */
 
   .page {
     @apply max-w-[1040px] mx-auto px-8 pt-8 pb-14;
@@ -163,18 +134,6 @@
     }
   }
 }
-
-/* ------------------------------------------------------------------
- * Leaflet overrides for the dark theme.
- *
- * Leaflet's default CSS (loaded via angular.json) assumes a light page
- * and uses high specificity. We override the popup, zoom controls,
- * and attribution bar so the map blends with the rest of the app.
- *
- * !important is used deliberately here — without it, Leaflet's built-in
- * rules win. If we ever use many more Leaflet features, consider writing
- * a proper theme overlay instead of per-rule overrides.
- * ----------------------------------------------------------------- */
 
 .leaflet-container {
   background: var(--color-bg-tertiary);
@@ -190,7 +149,7 @@
 
 .leaflet-popup-content {
   margin: 10px 14px;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -213,8 +172,19 @@
   color: var(--color-text-secondary) !important;
 }
 
-/* Custom map pins (rendered via L.divIcon — no PNG assets needed).
-   Two variants so registration vs sighting are visually distinct. */
+.leaflet-pane,
+.leaflet-top,
+.leaflet-bottom,
+.leaflet-control,
+.leaflet-control-container,
+.leaflet-popup,
+.leaflet-tooltip,
+.leaflet-map-pane,
+.leaflet-marker-pane,
+.leaflet-popup-pane,
+.leaflet-tooltip-pane {
+  z-index: 1 !important;
+}
 
 .pawid-pin {
   width: 18px;
@@ -224,50 +194,56 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-.pawid-pin--initial  { background: var(--color-accent); }
-.pawid-pin--sighting { background: var(--color-accent-soft-fg); }
+.pawid-pin--initial {
+  background: #1d9e75;
+}
+.pawid-pin--sighting {
+  background: #f5b041;
+  animation: pulse-pin 1.5s ease-in-out infinite;
+}
 
-/* ------------------------------------------------------------------
- * Form-page component classes.
- * Used by register-dog and report-sighting forms.
- * ----------------------------------------------------------------- */
+@keyframes pulse-pin {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.5),
+      0 0 0 0 rgba(245, 176, 65, 0.8);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.5),
+      0 0 0 12px rgba(245, 176, 65, 0);
+  }
+}
 
 @layer components {
-
-  /* A grouped section of form fields, visually distinct from the page bg. */
   .form-card {
     @apply bg-bg-secondary border border-border-tertiary/50 rounded-lg p-6
            max-[560px]:p-4;
   }
 
   .form-card__title {
-    @apply text-[13px] font-medium text-text-secondary uppercase tracking-wider mb-4;
+    @apply text-base font-medium text-text-secondary uppercase tracking-wider mb-4;
   }
 
-  /* Small "(optional)" hint next to a label — kept muted and normal-case. */
   .field-optional {
     @apply text-text-muted font-normal normal-case tracking-normal;
   }
 
-  /* Inline field-level error message. */
   .field-error {
-    @apply text-xs text-badge-urgent-fg mt-1.5;
+    @apply text-sm text-badge-urgent-fg mt-1.5;
   }
 
-  /* Top-of-form error banner for failed submissions. */
   .error-banner {
-    @apply p-4 rounded-md text-sm
+    @apply p-4 rounded-md text-[15px]
            bg-badge-urgent-bg text-badge-urgent-fg
            border border-badge-urgent-fg/30;
   }
 
-  /* ---- Toggle chips (used for filter bars and single-select radio groups) ----
-     Base .chip has the shape; .chip--active / .chip--inactive supply the color
-     state. Applied via [class.chip--active]="..." in the template so the state
-     is bound to a single boolean expression.                                  */
-
   .chip {
-    @apply text-xs px-3 py-1 rounded-full border transition-colors;
+    @apply text-sm px-4 py-1.5 rounded-full border transition-colors;
   }
 
   .chip--active {
@@ -278,4 +254,23 @@
     @apply bg-transparent text-text-secondary border-border-tertiary/50
            hover:text-text-primary hover:border-border-primary;
   }
+}
+
+.stat-icon--accent {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(66%) saturate(435%)
+    hue-rotate(116deg) brightness(96%) contrast(87%);
+}
+
+.stat-icon--sighting {
+  filter: brightness(0) saturate(100%)
+          invert(78%) sepia(39%) saturate(958%) hue-rotate(346deg) brightness(99%) contrast(95%);
+}
+
+.stat-icon--urgent {
+  filter: brightness(0) saturate(100%) invert(71%) sepia(27%) saturate(446%)
+    hue-rotate(339deg) brightness(95%) contrast(93%);
+}
+
+.stat-icon--white {
+  filter: brightness(0) invert(1);
 }

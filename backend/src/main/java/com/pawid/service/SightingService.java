@@ -34,7 +34,6 @@ public class SightingService {
         Dog dog = dogRepository.findById(dogId)
                 .orElseThrow(() -> new NotFoundException("Dog not found: " + dogId));
 
-        // Attach the currently authenticated user as the reporter (null if anonymous).
         AppUser reporter = currentUser();
 
         Sighting sighting = new Sighting();
@@ -52,7 +51,6 @@ public class SightingService {
         return SightingResponse.from(saved, url);
     }
 
-    /** Returns the AppUser from the security context, or null for unauthenticated requests. */
     private AppUser currentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.getPrincipal() instanceof AppUser user) {

@@ -16,10 +16,6 @@ public class Sighting {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * We store only the relationship side that matters (the FK). Loading the parent dog
-     * back from the sighting is rarely needed, so LAZY avoids accidental N+1 queries.
-     */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "dog_id", nullable = false)
     private Dog dog;
@@ -40,7 +36,6 @@ public class Sighting {
     @Column(name = "photo_filename", length = 255)
     private String photoFilename;
 
-    /** The user who reported this sighting. Null for legacy/anonymous sightings. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reporter_id")
     private AppUser reporter;
